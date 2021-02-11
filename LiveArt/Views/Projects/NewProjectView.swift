@@ -10,7 +10,9 @@ import SwiftUI
 struct NewProjectView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @State private var showingImagePicker = false
+    @State private var showingVideoEditor = false
     @State private var inputImage: UIImage?
+    @State private var selectedVideoUrl: String?
     @State private var projectTitle: String = "New Project"
     @State var showCreateButton = false
     @State private var selectedImage: Image?
@@ -51,9 +53,15 @@ struct NewProjectView: View {
             Button.init("Select Image") {
                 showingImagePicker = true
             }.sheet(isPresented: $showingImagePicker, onDismiss: loadImage, content: {
-                ImagePicker.init(image: self.$inputImage)
+                ImagePicker.init(image: self.$inputImage, urlPath: self.$selectedVideoUrl)
             })
-            
+            Spacer()
+            Button("Show editor") {
+                showingVideoEditor = true
+            }
+            .sheet(isPresented: $showingVideoEditor) {
+                VideoEditor.init(urlPath: $selectedVideoUrl)
+            }
             Spacer()
             if showCreateButton {
                 Button(action: {
@@ -85,6 +93,7 @@ struct NewProjectView: View {
             showCreateButton = true
         }
     }
+    
 }
 
 struct NewProjectView_Previews: PreviewProvider {

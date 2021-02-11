@@ -21,17 +21,22 @@ struct ImagePicker: UIViewControllerRepresentable {
                 parent.image = uiImage
             }
             
+            if let urlPath = info[.mediaURL] as? URL {
+                parent.urlPath = urlPath.path
+            }
             parent.presentationMode.wrappedValue.dismiss()
         }
     }
     
     @Environment(\.presentationMode) var presentationMode
     @Binding var image: UIImage?
+    @Binding var urlPath: String?
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker >) -> some UIViewController {
         let picker = UIImagePickerController()
         picker.mediaTypes = ["public.movie"]
         picker.delegate = context.coordinator
+        picker.allowsEditing = false
         return picker
     }
     
