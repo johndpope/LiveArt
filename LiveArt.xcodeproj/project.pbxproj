@@ -18,6 +18,9 @@
 		45AEC4AD25BCA4D0001BF888 /* LiveArtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AEC4AC25BCA4D0001BF888 /* LiveArtTests.swift */; };
 		45AEC4B825BCA4D0001BF888 /* LiveArtUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AEC4B725BCA4D0001BF888 /* LiveArtUITests.swift */; };
 		45AF757225D498B5006A59F4 /* VideoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF757125D498B5006A59F4 /* VideoEditor.swift */; };
+		45AF757A25D53F51006A59F4 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF757925D53F51006A59F4 /* CameraView.swift */; };
+		45AF758025D54052006A59F4 /* AugmentedCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF757F25D54052006A59F4 /* AugmentedCamera.swift */; };
+		45AF758525D54479006A59F4 /* 49B5122E-CB9B-4EDF-8A52-DD63373C2540_1_105_c.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 45AF758425D54479006A59F4 /* 49B5122E-CB9B-4EDF-8A52-DD63373C2540_1_105_c.jpeg */; };
 		45B9E6D325BCE244002B905D /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B9E6D225BCE244002B905D /* ProjectsView.swift */; };
 		45B9E6D825BCE2B1002B905D /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B9E6D725BCE2B1002B905D /* ChatView.swift */; };
 		45B9E6E125BCE2F9002B905D /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B9E6E025BCE2F9002B905D /* AccountView.swift */; };
@@ -62,6 +65,9 @@
 		45AEC4B725BCA4D0001BF888 /* LiveArtUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveArtUITests.swift; sourceTree = "<group>"; };
 		45AEC4B925BCA4D0001BF888 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45AF757125D498B5006A59F4 /* VideoEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEditor.swift; sourceTree = "<group>"; };
+		45AF757925D53F51006A59F4 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		45AF757F25D54052006A59F4 /* AugmentedCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedCamera.swift; sourceTree = "<group>"; };
+		45AF758425D54479006A59F4 /* 49B5122E-CB9B-4EDF-8A52-DD63373C2540_1_105_c.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "49B5122E-CB9B-4EDF-8A52-DD63373C2540_1_105_c.jpeg"; sourceTree = "<group>"; };
 		45B9E6D225BCE244002B905D /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		45B9E6D725BCE2B1002B905D /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		45B9E6E025BCE2F9002B905D /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
@@ -119,6 +125,7 @@
 		45AEC49925BCA4CE001BF888 /* LiveArt */ = {
 			isa = PBXGroup;
 			children = (
+				45AF758425D54479006A59F4 /* 49B5122E-CB9B-4EDF-8A52-DD63373C2540_1_105_c.jpeg */,
 				45B9E6DC25BCE2C2002B905D /* Views */,
 				45AEC49A25BCA4CE001BF888 /* LiveArtApp.swift */,
 				45AEC49E25BCA4D0001BF888 /* Assets.xcassets */,
@@ -166,6 +173,8 @@
 				458A6ADD25BD1B07001517E9 /* ProjectsViewModel.swift */,
 				458A6AEF25BDB002001517E9 /* ImagePicker.swift */,
 				45AF757125D498B5006A59F4 /* VideoEditor.swift */,
+				45AF757925D53F51006A59F4 /* CameraView.swift */,
+				45AF757F25D54052006A59F4 /* AugmentedCamera.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -286,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45AEC4A225BCA4D0001BF888 /* Preview Assets.xcassets in Resources */,
+				45AF758525D54479006A59F4 /* 49B5122E-CB9B-4EDF-8A52-DD63373C2540_1_105_c.jpeg in Resources */,
 				45AEC49F25BCA4D0001BF888 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,6 +324,8 @@
 				458A6AF025BDB002001517E9 /* ImagePicker.swift in Sources */,
 				458A6AD125BD0D09001517E9 /* ProjectRow.swift in Sources */,
 				45B9E6D825BCE2B1002B905D /* ChatView.swift in Sources */,
+				45AF758025D54052006A59F4 /* AugmentedCamera.swift in Sources */,
+				45AF757A25D53F51006A59F4 /* CameraView.swift in Sources */,
 				45B9E6F425BCE71C002B905D /* ProjectViewItem.swift in Sources */,
 				45AF757225D498B5006A59F4 /* VideoEditor.swift in Sources */,
 				45B9E6D325BCE244002B905D /* ProjectsView.swift in Sources */,

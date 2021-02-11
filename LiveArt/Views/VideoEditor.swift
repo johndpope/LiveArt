@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct VideoEditor: UIViewControllerRepresentable {
-    class Coordinator: NSObject, UIVideoEditorControllerDelegate {
+    class Coordinator: NSObject, UINavigationControllerDelegate, UIVideoEditorControllerDelegate {
         let parent: VideoEditor
         
         init(_ parent: VideoEditor) {
@@ -19,6 +19,10 @@ struct VideoEditor: UIViewControllerRepresentable {
         func videoEditorControllerDidCancel(_ editor: UIVideoEditorController) {
             parent.presentationMode.wrappedValue.dismiss()
         }
+        
+        func videoEditorController(_ editor: UIVideoEditorController, didSaveEditedVideoToPath editedVideoPath: String) {
+            print("break")
+        }
     }
     
     @Environment(\.presentationMode) var presentationMode
@@ -26,9 +30,12 @@ struct VideoEditor: UIViewControllerRepresentable {
     
     func makeUIViewController(context: Context) -> some UIViewController {
         let editor = UIVideoEditorController()
-        if let path = urlPath {
+        editor.delegate = context.coordinator
+         if let path = urlPath {
             editor.videoPath  = path
         }
+        editor.videoMaximumDuration = 15.0
+        editor.videoQuality = .typeHigh
         return editor
     }
     
