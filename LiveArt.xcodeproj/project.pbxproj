@@ -257,6 +257,7 @@
 				45AEC49425BCA4CE001BF888 /* Frameworks */,
 				45AEC49525BCA4CE001BF888 /* Resources */,
 				BF0C927C9BFBB929B9F185B7 /* [CP] Embed Pods Frameworks */,
+				2EF88B4F681B637854E05FC4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -295,6 +296,7 @@
 				45AEC4B025BCA4D0001BF888 /* Frameworks */,
 				45AEC4B125BCA4D0001BF888 /* Resources */,
 				7093C3C13ED2E6B6DC065C2D /* [CP] Embed Pods Frameworks */,
+				2E28F1074D28159903F9D173 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -397,6 +399,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2E28F1074D28159903F9D173 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LiveArt-LiveArtUITests/Pods-LiveArt-LiveArtUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LiveArt-LiveArtUITests/Pods-LiveArt-LiveArtUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LiveArt-LiveArtUITests/Pods-LiveArt-LiveArtUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2EF88B4F681B637854E05FC4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LiveArt/Pods-LiveArt-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LiveArt/Pods-LiveArt-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LiveArt/Pods-LiveArt-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		7093C3C13ED2E6B6DC065C2D /* [CP] Embed Pods Frameworks */ = {
