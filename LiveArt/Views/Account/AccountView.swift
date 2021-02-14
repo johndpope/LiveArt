@@ -17,16 +17,16 @@ struct AccountView: View {
         session.signOut()
     }
     var body: some View {
-      Group {
-        if (session.session != nil) {
-          Text("Hello user!")
-            Button(action: signOut) {
-                Text("Sign out")
-            }
-        } else {
-            SignInView()
-        }
-      }.onAppear(perform: getUser)
+        NavigationView {
+              if (session.session != nil) {
+                Text("Hello user!")
+                  Button(action: signOut) {
+                      Text("Sign out")
+                  }
+              } else {
+                SignInView()
+              }
+        }.onAppear(perform: getUser)
     }
   }
 

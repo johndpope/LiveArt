@@ -14,6 +14,7 @@ struct SignInView : View {
     @State var error = false
 
     @EnvironmentObject var session: SessionStore
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
 
     func signIn () {
         loading = true
@@ -27,6 +28,10 @@ struct SignInView : View {
                 self.password = ""
             }
         }
+    }
+    
+    func dismiss() {
+        mode.wrappedValue.dismiss()
     }
     
     var body: some View {
@@ -50,6 +55,9 @@ struct SignInView : View {
                     Button(action: signIn) {
                         Text("Sign in")
                     }
+                    Button.init(action: dismiss, label: {
+                        Text("Button")
+                    })
                 }
             }
         }

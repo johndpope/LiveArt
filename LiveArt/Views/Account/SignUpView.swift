@@ -8,13 +8,22 @@
 import SwiftUI
 
 struct SignUpView: View {
+    
     @State var email: String = ""
     @State var password: String = ""
+    @State var firstName: String = ""
+    @State var lastName: String = ""
     @State var loading = false
     @State var error = false
 
     @EnvironmentObject var session: SessionStore
     
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
+    func backToSignUp() {
+        mode.wrappedValue.dismiss()
+    }
+
     func signUp () {
         loading = true
         error = false
@@ -23,6 +32,9 @@ struct SignUpView: View {
             if error != nil {
                 self.error = true
             } else {
+                if let uid = result?.user.uid {
+                    session.createUser(firstName: firstName, lastName: lastName, email: email, uid: uid)
+                }
                 self.email = ""
                 self.password = ""
             }
@@ -34,7 +46,11 @@ struct SignUpView: View {
             VStack {
                 Spacer()
                 Text("Create account")
-                
+                Button.init("Sign In", action: backToSignUp)
+                HStack {
+                    TextField("first", text: $firstName)
+                    TextField("last", text: $lastName)
+                }
                 TextField.init("Email", text: $email)
                 SecureField.init("Password", text: $password)
                 Spacer()

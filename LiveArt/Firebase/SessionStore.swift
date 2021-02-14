@@ -7,12 +7,15 @@
 import Foundation
 import SwiftUI
 import Firebase
+import FirebaseDatabase
 import Combine
 
 class SessionStore : ObservableObject {
     var didChange = PassthroughSubject<SessionStore, Never>()
     var session: User? { didSet { self.didChange.send(self) }}
     var handle: AuthStateDidChangeListenerHandle?
+    
+    let rootRef = Database.database().reference()
 
     func listen () {
         // monitor authentication changes using firebase
@@ -32,20 +35,16 @@ class SessionStore : ObservableObject {
         }
     }
 
-    func signUp(
-        email: String,
-        password: String,
-        handler: @escaping AuthDataResultCallback
-        ) {
+    func signUp( email: String, password: String, handler: @escaping AuthDataResultCallback ) {
         Auth.auth().createUser(withEmail: email, password: password, completion: handler)
     }
 
-    func signIn(
-        email: String,
-        password: String,
-        handler: @escaping AuthDataResultCallback
-        ) {
+    func signIn( email: String, password: String, handler: @escaping AuthDataResultCallback ) {
         Auth.auth().signIn(withEmail: email, password: password, completion: handler)
+    }
+    
+    func createUser(firstName: String, lastName: String, email: String, uid: String) {
+        rootRef.child("users").child(uid).setValue(["firstname": firstName, "lastname": lastName, "email": email])
     }
 
     func signOut () -> Bool {
