@@ -10,6 +10,9 @@ import Firebase
 
 @main
 struct LiveArtApp: App {
+    init() {
+        FirebaseApp.configure()
+    }
     var body: some Scene {
         WindowGroup {
             let model = ProjectsViewModel()

@@ -30,6 +30,7 @@ struct ContentView: View {
                     Text("View")
                 }
             AccountView()
+                .environmentObject(SessionStore())
                 .tabItem {
                     Image(systemName: "person.crop.circle")
                     Text("Account")

@@ -1,24 +1,24 @@
 //
-//  SignUpView.swift
+//  SignInView.swift
 //  LiveArt
 //
-//  Created by Caleb Mitcler on 2/12/21.
+//  Created by Caleb Mitcler on 2/13/21.
 //
-
 import SwiftUI
 
-struct SignUpView: View {
+struct SignInView : View {
+
     @State var email: String = ""
     @State var password: String = ""
     @State var loading = false
     @State var error = false
 
     @EnvironmentObject var session: SessionStore
-    
-    func signUp () {
+
+    func signIn () {
         loading = true
         error = false
-        session.signUp(email: email, password: password) { (result, error) in
+        session.signIn(email: email, password: password) { (result, error) in
             self.loading = false
             if error != nil {
                 self.error = true
@@ -33,7 +33,12 @@ struct SignUpView: View {
         NavigationView {
             VStack {
                 Spacer()
-                Text("Create account")
+                HStack {
+                    Text("Sign in below or")
+                    NavigationLink(destination: SignUpView()) {
+                        Text("Create Account")
+                    }
+                }
                 
                 TextField.init("Email", text: $email)
                 SecureField.init("Password", text: $password)
@@ -42,18 +47,16 @@ struct SignUpView: View {
                     Text("ahhh crap")
                 }
                 HStack {
-                    Button(action: signUp) {
-                        Text("Sign up")
+                    Button(action: signIn) {
+                        Text("Sign in")
                     }
                 }
             }
         }
     }
-  }
-
-struct SignUpView_Previews: PreviewProvider {
+}
+struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
-        SignUpView()
-            .environmentObject(SessionStore())
+        SignInView()
     }
 }

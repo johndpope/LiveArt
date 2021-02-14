@@ -31,6 +31,8 @@
 		45B9E6EE25BCE650002B905D /* ProjectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B9E6ED25BCE650002B905D /* ProjectManager.swift */; };
 		45B9E6F425BCE71C002B905D /* ProjectViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B9E6F325BCE71C002B905D /* ProjectViewItem.swift */; };
 		45B9E6F925BCE741002B905D /* NewProjectViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B9E6F825BCE741002B905D /* NewProjectViewItem.swift */; };
+		45BECB8625D8669900A34746 /* SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BECB8525D8669900A34746 /* SessionStore.swift */; };
+		45BECB8B25D86AB600A34746 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45BECB8A25D86AB600A34746 /* SignInView.swift */; };
 		6CD64FAA96A70B431D0969E7 /* Pods_LiveArt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C810A032F32609C19974982 /* Pods_LiveArt.framework */; };
 		6D4DBBA89B282F156EC225C2 /* Pods_LiveArt_LiveArtUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6788FA066D42BF875D2404A8 /* Pods_LiveArt_LiveArtUITests.framework */; };
 /* End PBXBuildFile section */
@@ -85,6 +87,8 @@
 		45B9E6ED25BCE650002B905D /* ProjectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManager.swift; sourceTree = "<group>"; };
 		45B9E6F325BCE71C002B905D /* ProjectViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectViewItem.swift; sourceTree = "<group>"; };
 		45B9E6F825BCE741002B905D /* NewProjectViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectViewItem.swift; sourceTree = "<group>"; };
+		45BECB8525D8669900A34746 /* SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionStore.swift; sourceTree = "<group>"; };
+		45BECB8A25D86AB600A34746 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		6788FA066D42BF875D2404A8 /* Pods_LiveArt_LiveArtUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveArt_LiveArtUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C810A032F32609C19974982 /* Pods_LiveArt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiveArt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		810BB35ADD0B001D57D1D606 /* Pods-LiveArt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveArt.debug.xcconfig"; path = "Target Support Files/Pods-LiveArt/Pods-LiveArt.debug.xcconfig"; sourceTree = "<group>"; };
@@ -124,7 +128,9 @@
 		456FFDA725D69A4C00742B7E /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				45B9E6E025BCE2F9002B905D /* AccountView.swift */,
 				456FFDA825D69A6D00742B7E /* SignUpView.swift */,
+				45BECB8A25D86AB600A34746 /* SignInView.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -155,6 +161,7 @@
 		45AEC49925BCA4CE001BF888 /* LiveArt */ = {
 			isa = PBXGroup;
 			children = (
+				45BECB8425D8667800A34746 /* Firebase */,
 				45AF758425D54479006A59F4 /* 49B5122E-CB9B-4EDF-8A52-DD63373C2540_1_105_c.jpeg */,
 				45B9E6DC25BCE2C2002B905D /* Views */,
 				45AEC49A25BCA4CE001BF888 /* LiveArtApp.swift */,
@@ -200,7 +207,6 @@
 				45B9E6F225BCE704002B905D /* Projects */,
 				45B9E6D725BCE2B1002B905D /* ChatView.swift */,
 				45AEC49C25BCA4CE001BF888 /* ContentView.swift */,
-				45B9E6E025BCE2F9002B905D /* AccountView.swift */,
 				458A6ADD25BD1B07001517E9 /* ProjectsViewModel.swift */,
 				458A6AEF25BDB002001517E9 /* ImagePicker.swift */,
 				45AF757125D498B5006A59F4 /* VideoEditor.swift */,
@@ -220,6 +226,14 @@
 				458A6AEA25BD9F7B001517E9 /* NewProjectView.swift */,
 			);
 			path = Projects;
+			sourceTree = "<group>";
+		};
+		45BECB8425D8667800A34746 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				45BECB8525D8669900A34746 /* SessionStore.swift */,
+			);
+			path = Firebase;
 			sourceTree = "<group>";
 		};
 		7E8BF7CA69D199FE153C2712 /* Frameworks */ = {
@@ -530,10 +544,12 @@
 				45B9E6D325BCE244002B905D /* ProjectsView.swift in Sources */,
 				45AEC49D25BCA4CE001BF888 /* ContentView.swift in Sources */,
 				45AEC49B25BCA4CE001BF888 /* LiveArtApp.swift in Sources */,
+				45BECB8B25D86AB600A34746 /* SignInView.swift in Sources */,
 				45B9E6E125BCE2F9002B905D /* AccountView.swift in Sources */,
 				45B9E6EE25BCE650002B905D /* ProjectManager.swift in Sources */,
 				456FFDA925D69A6D00742B7E /* SignUpView.swift in Sources */,
 				45B9E6E625BCE3C5002B905D /* Project.swift in Sources */,
+				45BECB8625D8669900A34746 /* SessionStore.swift in Sources */,
 				458A6ADE25BD1B07001517E9 /* ProjectsViewModel.swift in Sources */,
 				45B9E6F925BCE741002B905D /* NewProjectViewItem.swift in Sources */,
 				458A6AEB25BD9F7B001517E9 /* NewProjectView.swift in Sources */,
