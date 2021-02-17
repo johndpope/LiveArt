@@ -17,6 +17,7 @@ struct LiveArtApp: App {
         WindowGroup {
             let model = ProjectsViewModel()
             ContentView(model: model)
+                .environmentObject(SessionStore())
         }
     }
 }

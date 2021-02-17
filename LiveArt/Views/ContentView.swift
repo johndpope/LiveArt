@@ -10,6 +10,8 @@ import SwiftUI
 struct ContentView: View {
     var model: ProjectsViewModel
     
+    @EnvironmentObject var session: SessionStore
+    
     init(model: ProjectsViewModel) {
         self.model = model
         UITabBar.appearance().barTintColor = .systemBackground
@@ -30,12 +32,14 @@ struct ContentView: View {
                     Text("View")
                 }
             AccountView()
-                .environmentObject(SessionStore())
+                .environmentObject(session)
                 .tabItem {
                     Image(systemName: "person.crop.circle")
                     Text("Account")
                 }
-        }
+        }.onAppear(perform: {
+            session.listen()
+        })
         .font(.headline)
     }
 }

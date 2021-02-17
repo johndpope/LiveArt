@@ -23,11 +23,21 @@ class SessionStore : ObservableObject {
             if let user = user {
                 // if we have a user, create a new user model
                 print("Got user: \(user)")
-                self.session = User(
-                    uid: user.uid,
-                    displayName: user.displayName,
-                    email: user.email
-                )
+                let userId = user.uid
+                let userRef = self.rootRef.child("users").child(userId)
+                userRef.getData { (error, snapshot) in
+                    if let userData = snapshot.value as? [String: String] {
+                        self.session = User(
+                            uid: user.uid,
+                            email: user.email,
+                            firstName: userData["firstname"],
+                            lastName: userData["lastname"]
+                        )
+                        DispatchQueue.main.async {
+                            self.objectWillChange.send()
+                        }
+                    }
+                }
             } else {
                 // if we don't have a user, set our session to nil
                 self.session = nil
@@ -37,6 +47,7 @@ class SessionStore : ObservableObject {
 
     func signUp( email: String, password: String, handler: @escaping AuthDataResultCallback ) {
         Auth.auth().createUser(withEmail: email, password: password, completion: handler)
+        self.objectWillChange.send()
     }
 
     func signIn( email: String, password: String, handler: @escaping AuthDataResultCallback ) {
@@ -48,6 +59,7 @@ class SessionStore : ObservableObject {
     }
 
     func signOut () -> Bool {
+        self.objectWillChange.send()
         do {
             try Auth.auth().signOut()
             self.session = nil
@@ -67,11 +79,13 @@ class SessionStore : ObservableObject {
 class User {
     var uid: String
     var email: String?
-    var displayName: String?
+    var firstName: String?
+    var lastName: String?
 
-    init(uid: String, displayName: String?, email: String?) {
+    init(uid: String, email: String?, firstName: String?, lastName: String?) {
         self.uid = uid
         self.email = email
-        self.displayName = displayName
+        self.firstName = firstName
+        self.lastName = lastName
     }
 }

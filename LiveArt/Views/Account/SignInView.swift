@@ -13,7 +13,8 @@ struct SignInView : View {
     @State var loading = false
     @State var error = false
 
-    @EnvironmentObject var session: SessionStore
+//    @EnvironmentObject var session: SessionStore
+    var session: SessionStore
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
 
     func signIn () {
@@ -65,6 +66,6 @@ struct SignInView : View {
 }
 struct SignInView_Previews: PreviewProvider {
     static var previews: some View {
-        SignInView()
+        SignInView( session: SessionStore())
     }
 }

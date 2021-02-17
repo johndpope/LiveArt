@@ -17,7 +17,6 @@ struct SignUpView: View {
     @State var error = false
 
     @EnvironmentObject var session: SessionStore
-    
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
     func backToSignUp() {

@@ -9,24 +9,26 @@ import SwiftUI
 
 struct AccountView: View {
     @EnvironmentObject var session: SessionStore
-    func getUser () {
-        session.listen()
-    }
     
     func signOut() {
         session.signOut()
     }
+    
     var body: some View {
         NavigationView {
               if (session.session != nil) {
-                Text("Hello user!")
-                  Button(action: signOut) {
-                      Text("Sign out")
-                  }
+                VStack {
+                    Text("Hello \(session.session?.firstName ?? "")!")
+                      Button(action: signOut) {
+                          Text("Sign out")
+                      }
+                }
               } else {
-                SignInView()
+                SignInView(session: session)
               }
-        }.onAppear(perform: getUser)
+        }.onAppear(perform: {
+            session.listen()
+        })
     }
   }
 
