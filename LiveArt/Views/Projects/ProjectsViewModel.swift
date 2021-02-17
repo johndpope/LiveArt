@@ -28,8 +28,4 @@ class ProjectsViewModel: ObservableObject {
         return projectManager.projects
     }
     
-    func getProjectRows() -> [[Project]] {
-        return projectManager.projectRows
-    }
-    
 }

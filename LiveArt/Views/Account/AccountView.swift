@@ -26,9 +26,7 @@ struct AccountView: View {
               } else {
                 SignInView(session: session)
               }
-        }.onAppear(perform: {
-            session.listen()
-        })
+        }
     }
   }
 

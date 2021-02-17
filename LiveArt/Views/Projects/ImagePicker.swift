@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Photos
 
 struct ImagePicker: UIViewControllerRepresentable {
     
@@ -34,7 +35,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker >) -> some UIViewController {
         let picker = UIImagePickerController()
-        picker.mediaTypes = ["public.movie"]
+//        picker.mediaTypes = ["public.movie"]
         picker.delegate = context.coordinator
         picker.allowsEditing = false
         return picker

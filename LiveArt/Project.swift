@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftyJSON
 
 struct Project: Hashable, Identifiable {
     var id: UUID?
