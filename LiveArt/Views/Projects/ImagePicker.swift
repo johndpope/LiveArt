@@ -18,20 +18,15 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let uiImage = info[.originalImage] as? UIImage {
-                parent.image = uiImage
-            }
-            
-            if let urlPath = info[.mediaURL] as? URL {
-                parent.urlPath = urlPath.path
+            if let url = info[UIImagePickerController.InfoKey.imageURL] as? URL {
+                parent.imageUrlPath = url.path
             }
             parent.presentationMode.wrappedValue.dismiss()
         }
     }
     
     @Environment(\.presentationMode) var presentationMode
-    @Binding var image: UIImage?
-    @Binding var urlPath: String?
+    @Binding var imageUrlPath: String?
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker >) -> some UIViewController {
         let picker = UIImagePickerController()

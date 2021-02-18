@@ -12,7 +12,7 @@ struct ProjectViewItem: View {
 
     var body: some View {
         VStack {
-            Image(uiImage: project.image)
+            Image(uiImage: project.getImage())
                 .resizable()
                 .scaledToFit()
             Text(project.title ?? "")
@@ -22,6 +22,6 @@ struct ProjectViewItem: View {
 
 struct ProjectViewItem_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectViewItem(project: Project.init(title: "asdfasdf"))
+        ProjectViewItem(project: Project.init(title: "asdfasdf", imageUrlPath: ""))
     }
 }

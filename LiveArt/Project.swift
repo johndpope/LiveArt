@@ -12,10 +12,11 @@ import SwiftyJSON
 class Project: JSONableObject, Identifiable {
     @objc dynamic var id: UUID?
     @objc dynamic var title: String?
-    var image = UIImage()
+    @objc dynamic var imageUrlPath: String?
     
-    init(title: String) {
+    init(title: String, imageUrlPath: String) {
         self.title = title
+        self.imageUrlPath = imageUrlPath
         self.id = UUID.init()
         super.init()
     }
@@ -27,10 +28,23 @@ class Project: JSONableObject, Identifiable {
     override func getAllPropertyMappings() -> [String: String] {
         var mappings = [
             "id": "id",
-            "title": "title"
+            "title": "title",
+            "image_url_path": "imageUrlPath"
         ]
+        
         for (k, v) in super.getAllPropertyMappings() { mappings[k] = v }
         return mappings
+    }
+    
+    func getImage() -> UIImage {
+        var ret = UIImage.init()
+        if let urlPath = imageUrlPath, let url = URL.init(string: urlPath) {
+            let imagePath = NSTemporaryDirectory() + "/" + url.lastPathComponent
+            if let image = UIImage.init(contentsOfFile: imagePath) {
+                ret = image
+            }
+        }
+        return ret
     }
     
     func storeLocal() {

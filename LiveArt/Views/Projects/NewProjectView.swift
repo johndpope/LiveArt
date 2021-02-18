@@ -11,8 +11,7 @@ struct NewProjectView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @State private var showingImagePicker = false
     @State private var showingVideoEditor = false
-    @State private var inputImage: UIImage?
-    @State private var selectedVideoUrl: String?
+    @State private var inputImageUrl: String?
     @State private var projectTitle: String = "New Project"
     @State var showCreateButton = false
     @State private var selectedImage: Image?
@@ -53,20 +52,13 @@ struct NewProjectView: View {
             Button.init("Select Image") {
                 showingImagePicker = true
             }.sheet(isPresented: $showingImagePicker, onDismiss: loadImage, content: {
-                ImagePicker.init(image: self.$inputImage, urlPath: self.$selectedVideoUrl)
+                ImagePicker.init(imageUrlPath: self.$inputImageUrl)
             })
-            Spacer()
-            Button("Show editor") {
-                showingVideoEditor = true
-            }
-            .sheet(isPresented: $showingVideoEditor) {
-                VideoEditor.init(urlPath: $selectedVideoUrl)
-            }
             Spacer()
             if showCreateButton {
                 Button(action: {
-                    if let image = inputImage {
-                        self.projectsModel.createProject(title: projectTitle, image: image)
+                    if let imageUrl = inputImageUrl {
+                        self.projectsModel.createProject(title: projectTitle, imageUrlPath: imageUrl)
                         self.mode.wrappedValue.dismiss()
                     }
                 }, label: {
@@ -88,9 +80,11 @@ struct NewProjectView: View {
     }
     
     func loadImage() {
-        if let image = inputImage {
-            selectedImage = Image.init(uiImage: image)
-            showCreateButton = true
+        if let image = inputImageUrl {
+            if let uiImage = UIImage.init(contentsOfFile: image) {
+                selectedImage = Image.init(uiImage: uiImage)
+                showCreateButton = true
+            }
         }
     }
     
