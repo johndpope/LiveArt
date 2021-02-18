@@ -20,8 +20,8 @@ class Project: JSONableObject, Identifiable {
         super.init()
     }
     
-    public required init(fromJSON json: JSON) {
-        fatalError("init(fromJSON:) has not been implemented")
+    required init(fromJSON json: JSON) {
+        super.init(fromJSON: json)
     }
     
     override func getAllPropertyMappings() -> [String: String] {
@@ -32,7 +32,11 @@ class Project: JSONableObject, Identifiable {
         for (k, v) in super.getAllPropertyMappings() { mappings[k] = v }
         return mappings
     }
+    
     func storeLocal() {
-    print(toJsonString())
+        let paths = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)
+        if let projectId = id, let cacheUrl = paths.first?.appendingPathComponent(projectId.description + ".json") {
+            try? toJsonString()?.write(to: cacheUrl, atomically: true, encoding: .utf8)
+        }
     }
 }

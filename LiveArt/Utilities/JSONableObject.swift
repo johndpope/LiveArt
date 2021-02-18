@@ -95,7 +95,11 @@ open class JSONableObject: NSObject, JSONable {
     */
     open func getNativeValue(propertyName: String, propertyValue: String) -> Any? {
         var ret: Any?
-        
+        if propertyName == "id" {
+            ret = UUID.init(uuidString: propertyValue)
+        } else {
+            ret = propertyValue
+        }
 //        if propertyName.hasSuffix("Date") {
 //            ret = propertyValue.toDateISO8601()
 //        } else if propertyName.hasSuffix("Uri") {
