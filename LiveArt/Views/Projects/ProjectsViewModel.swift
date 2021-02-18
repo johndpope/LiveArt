@@ -17,9 +17,10 @@ class ProjectsViewModel: ObservableObject {
     
     func createProject(title: String, image: UIImage) {
         self.objectWillChange.send()
-        var p = Project(title: title)
+        let p = Project(title: title)
         p.image = image
         self.projectManager.projects.append(p)
+        p.storeLocal()
     }
     
     func getProjects() -> [Project] {

@@ -37,13 +37,6 @@ open class JSONableObject: NSObject, JSONable {
         verifyProperties()
     }
     
-//    static func newObject( className: String, json: JSON ) -> BitweaverRestObject? {
-//        if let productClass = NSClassFromString(className) as? BitweaverRestObject.Type {
-//            return productClass.init(fromJSON: json)
-//        }
-//        return nil
-//    }
-    
     /**
      Called before loading from JSON, this function should make sure any default values are set. What this means is dependent on your class, and this method should be overridden.
     */
@@ -166,7 +159,7 @@ open class JSONableObject: NSObject, JSONable {
                     if let nativeValue = self.getNativeValue(propertyName: propertyName, propertyValue: stringValue) {
                         self.setValue(nativeValue, forKey: propertyName )
                     }
-                } 
+                }
             }
         } catch {
             print("setProperty("+propertyName+") error ocurred: \(error)")
@@ -186,34 +179,30 @@ open class JSONableObject: NSObject, JSONable {
      */
     private func jsonValue(_ propValue: Any ) -> Any {
         var jsonValue: Any = ""
-//        do {
-//            try ObjC.catchException {
-//                if let jsonObject = propValue as? JSONableObject {
-//                    jsonValue = jsonObject.toJsonHash()
-//                } else if let nativeValue = propValue as? UUID {
-//                    jsonValue = nativeValue.uuidString
-//                } else if let nativeValue = propValue as? URL {
-//                    jsonValue = nativeValue.absoluteString
-//                } else if let nativeValue = propValue as? Date {
-//                    jsonValue = nativeValue.toStringISO8601()!
-//                } else if let nativeValue = propValue as? BWColor {
-//                    jsonValue = nativeValue.toHexString()
-//                } else if let nativeValue = propValue as? NSNumber, nativeValue.floatValue != 0 {
-//                    jsonValue = nativeValue.description
-//                } else if let nativeValue = propValue as? String {
-//                    jsonValue = nativeValue
-//                } else if let nativeValue = propValue as? BWFont {
-//                    jsonValue = nativeValue.toCssString()
-//                } else if self.isNumeric(propValue) {
-//                    jsonValue = propValue
-//                } else {
-//                    jsonValue = self.stringFromAny( propValue )
-//                }
-//            }
-//        } catch {
-//            let propValueDescription = String(format: "%@", [propValue])
-//            print("jsonValue("+propValueDescription+") error ocurred: \(error) ")
-//        }
+        do {
+            try ObjC.catchException {
+                if let jsonObject = propValue as? JSONableObject {
+                    jsonValue = jsonObject.toJsonHash()
+                } else if let nativeValue = propValue as? UUID {
+                    jsonValue = nativeValue.uuidString
+                } else if let nativeValue = propValue as? URL {
+                    jsonValue = nativeValue.absoluteString
+                } else if let nativeValue = propValue as? Date {
+                    jsonValue = nativeValue.toStringISO8601()!
+                } else if let nativeValue = propValue as? NSNumber, nativeValue.floatValue != 0 {
+                    jsonValue = nativeValue.description
+                } else if let nativeValue = propValue as? String {
+                    jsonValue = nativeValue
+                } else if self.isNumeric(propValue) {
+                    jsonValue = propValue
+                } else {
+                    jsonValue = self.stringFromAny( propValue )
+                }
+            }
+        } catch {
+            let propValueDescription = String(format: "%@", [propValue])
+            print("jsonValue("+propValueDescription+") error ocurred: \(error) ")
+        }
 
         return jsonValue
     }
@@ -341,4 +330,14 @@ open class JSONableObject: NSObject, JSONable {
         return ret
     }
     
+}
+
+extension Date {
+    func toStringISO8601() -> String? {
+        let RFC3339DateFormatter = DateFormatter()
+        RFC3339DateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        RFC3339DateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        RFC3339DateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        return RFC3339DateFormatter.string(from: self)
+    }
 }

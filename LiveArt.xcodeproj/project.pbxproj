@@ -131,6 +131,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		45472DB225DDD99100AAE56D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				451AD4E325DD3AB70061D7D3 /* JSONableObject.swift */,
+				45472D8A25DDD79800AAE56D /* ObjC.m */,
+				45472D8925DDD79800AAE56D /* LiveArt-Bridging-Header.h */,
+				45472D8F25DDD7BA00AAE56D /* ObjC.h */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		456FFDA725D69A4C00742B7E /* Account */ = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +178,7 @@
 		45AEC49925BCA4CE001BF888 /* LiveArt */ = {
 			isa = PBXGroup;
 			children = (
+				45472DB225DDD99100AAE56D /* Utilities */,
 				45BECB8425D8667800A34746 /* Firebase */,
 				45AF758425D54479006A59F4 /* 49B5122E-CB9B-4EDF-8A52-DD63373C2540_1_105_c.jpeg */,
 				45B9E6DC25BCE2C2002B905D /* Views */,
@@ -215,10 +227,6 @@
 				45AEC49C25BCA4CE001BF888 /* ContentView.swift */,
 				45AF757925D53F51006A59F4 /* CameraView.swift */,
 				45AF757F25D54052006A59F4 /* AugmentedCamera.swift */,
-				451AD4E325DD3AB70061D7D3 /* JSONableObject.swift */,
-				45472D8A25DDD79800AAE56D /* ObjC.m */,
-				45472D8925DDD79800AAE56D /* LiveArt-Bridging-Header.h */,
-				45472D8F25DDD7BA00AAE56D /* ObjC.h */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -736,7 +744,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.calebmitcler.LiveArt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "LiveArt/Views/LiveArt-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "LiveArt/Utilities/LiveArt-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -762,7 +770,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.calebmitcler.LiveArt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "LiveArt/Views/LiveArt-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "LiveArt/Utilities/LiveArt-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

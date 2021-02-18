@@ -15,7 +15,7 @@ struct ProjectViewItem: View {
             Image(uiImage: project.image)
                 .resizable()
                 .scaledToFit()
-            Text(project.title)
+            Text(project.title ?? "")
         }
     }
 }
