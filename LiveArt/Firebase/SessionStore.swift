@@ -60,29 +60,22 @@ class SessionStore : ObservableObject {
         rootRef.child("users").child(uid).setValue(["firstname": firstName, "lastname": lastName, "email": email])
     }
     
-    func storeProject(imagePath: String) {
+    func storeProject(imagePath: String, projectId: String) {
         let storageRef = storage.reference()
         let localFile = URL(string: "file://" + imagePath)!
-        // Create a reference to the file you want to upload
-        let riversRef = storageRef.child("images/firstImage.jpg")
+        
+        let imageRef = storageRef.child("images/" + projectId + ".jpg")
 
-        // Upload the file to the path "images/rivers.jpg"
-        let uploadTask = riversRef.putFile(from: localFile, metadata: nil) { metadata, error in
-          guard let metadata = metadata else {
-            // Uh-oh, an error occurred!
-            return
-          }
-          // Metadata contains file metadata such as size, content-type.
-          let size = metadata.size
-          // You can also access to download URL after upload.
-          riversRef.downloadURL { (url, error) in
-            guard let downloadURL = url else {
-              // Uh-oh, an error occurred!
-              return
+        let uploadTask = imageRef.putFile(from: localFile, metadata: nil) { metadata, error in
+            if error != nil {
+                print("there was error")
             }
-          }
         }
         uploadTask.resume()
+        
+        if let userId = session?.uid {
+            rootRef.child("user-projects").child(userId).setValue(["project": projectId])
+        }
     }
 
     func signOut () -> Bool {

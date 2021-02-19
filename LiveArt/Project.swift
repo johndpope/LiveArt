@@ -55,9 +55,9 @@ class Project: JSONableObject, Identifiable {
     }
     
     func storeRemote() {
-        if let urlPath = imageUrlPath, let url = URL.init(string: urlPath) {
+        if let urlPath = imageUrlPath, let url = URL.init(string: urlPath), let idString = id?.description {
             let imagePath = NSTemporaryDirectory() + "/" + url.lastPathComponent
-            gSessionStore.storeProject(imagePath: imagePath)
+            gSessionStore.storeProject(imagePath: imagePath, projectId: idString)
         }
     }
 }
