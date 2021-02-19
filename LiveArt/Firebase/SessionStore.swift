@@ -10,12 +10,14 @@ import Firebase
 import FirebaseDatabase
 import Combine
 
+let gSessionStore = SessionStore()
 class SessionStore : ObservableObject {
     var didChange = PassthroughSubject<SessionStore, Never>()
     var session: User? { didSet { self.didChange.send(self) }}
     var handle: AuthStateDidChangeListenerHandle?
     
     let rootRef = Database.database().reference()
+    let storage = Storage.storage()
 
     func listen () {
         // monitor authentication changes using firebase
@@ -56,6 +58,31 @@ class SessionStore : ObservableObject {
     
     func createUser(firstName: String, lastName: String, email: String, uid: String) {
         rootRef.child("users").child(uid).setValue(["firstname": firstName, "lastname": lastName, "email": email])
+    }
+    
+    func storeProject(imagePath: String) {
+        let storageRef = storage.reference()
+        let localFile = URL(string: "file://" + imagePath)!
+        // Create a reference to the file you want to upload
+        let riversRef = storageRef.child("images/firstImage.jpg")
+
+        // Upload the file to the path "images/rivers.jpg"
+        let uploadTask = riversRef.putFile(from: localFile, metadata: nil) { metadata, error in
+          guard let metadata = metadata else {
+            // Uh-oh, an error occurred!
+            return
+          }
+          // Metadata contains file metadata such as size, content-type.
+          let size = metadata.size
+          // You can also access to download URL after upload.
+          riversRef.downloadURL { (url, error) in
+            guard let downloadURL = url else {
+              // Uh-oh, an error occurred!
+              return
+            }
+          }
+        }
+        uploadTask.resume()
     }
 
     func signOut () -> Bool {

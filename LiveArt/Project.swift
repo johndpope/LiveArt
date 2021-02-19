@@ -53,4 +53,11 @@ class Project: JSONableObject, Identifiable {
             try? toJsonString()?.write(to: cacheUrl, atomically: true, encoding: .utf8)
         }
     }
+    
+    func storeRemote() {
+        if let urlPath = imageUrlPath, let url = URL.init(string: urlPath) {
+            let imagePath = NSTemporaryDirectory() + "/" + url.lastPathComponent
+            gSessionStore.storeProject(imagePath: imagePath)
+        }
+    }
 }

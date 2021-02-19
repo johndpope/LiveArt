@@ -20,6 +20,7 @@ class ProjectsViewModel: ObservableObject {
         let p = Project(title: title, imageUrlPath: imageUrlPath)
         self.projectManager.projects.append(p)
         p.storeLocal()
+        p.storeRemote()
     }
     
     func getProjects() -> [Project] {
