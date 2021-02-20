@@ -13,6 +13,14 @@ class ProjectsViewModel: ObservableObject {
     
     init() {
         projectManager = ProjectManager.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(didGetRemoteProject(_:)), name: NSNotification.Name("didGetRemoteProject"), object: nil)
+    }
+    
+    @objc func didGetRemoteProject(_ notification: Notification) {
+        if let project = notification.userInfo?["project"] as? Project {
+            projectManager.projects.append(project)
+        }
+        self.objectWillChange.send()
     }
     
     func createProject(title: String, imageUrlPath: String) {

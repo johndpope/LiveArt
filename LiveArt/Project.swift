@@ -39,8 +39,8 @@ class Project: JSONableObject, Identifiable {
     func getImage() -> UIImage {
         var ret = UIImage.init()
         if let urlPath = imageUrlPath, let url = URL.init(string: urlPath) {
-            let imagePath = NSTemporaryDirectory() + "/" + url.lastPathComponent
-            if let image = UIImage.init(contentsOfFile: imagePath) {
+//            let imagePath = NSTemporaryDirectory() + "/" + url.lastPathComponent
+            if let image = UIImage.init(contentsOfFile: urlPath) {
                 ret = image
             }
         }
@@ -55,9 +55,9 @@ class Project: JSONableObject, Identifiable {
     }
     
     func storeRemote() {
-        if let urlPath = imageUrlPath, let url = URL.init(string: urlPath), let idString = id?.description {
+        if let urlPath = imageUrlPath, let url = URL.init(string: urlPath), let idString = id?.description, let projTitle = title {
             let imagePath = NSTemporaryDirectory() + "/" + url.lastPathComponent
-            gSessionStore.storeProject(imagePath: imagePath, projectId: idString)
+            gSessionStore.storeProject(imagePath: imagePath, projectId: idString, title: projTitle)
         }
     }
 }

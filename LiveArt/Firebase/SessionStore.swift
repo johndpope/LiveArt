@@ -9,6 +9,7 @@ import SwiftUI
 import Firebase
 import FirebaseDatabase
 import Combine
+import SwiftyJSON
 
 let gSessionStore = SessionStore()
 class SessionStore : ObservableObject {
@@ -26,6 +27,7 @@ class SessionStore : ObservableObject {
                 // if we have a user, create a new user model
                 print("Got user: \(user)")
                 let userId = user.uid
+                self.getProjects(userId: userId)
                 let userRef = self.rootRef.child("users").child(userId)
                 userRef.getData { (error, snapshot) in
                     if let userData = snapshot.value as? [String: String] {
@@ -60,7 +62,7 @@ class SessionStore : ObservableObject {
         rootRef.child("users").child(uid).setValue(["firstname": firstName, "lastname": lastName, "email": email])
     }
     
-    func storeProject(imagePath: String, projectId: String) {
+    func storeProject(imagePath: String, projectId: String, title: String) {
         let storageRef = storage.reference()
         let localFile = URL(string: "file://" + imagePath)!
         
@@ -74,7 +76,34 @@ class SessionStore : ObservableObject {
         uploadTask.resume()
         
         if let userId = session?.uid {
-            rootRef.child("user-projects").child(userId).setValue(["project": projectId])
+            rootRef.child("user-projects").child(userId + "/" + projectId).setValue(["title": title])
+        }
+    }
+    
+    func getProjects(userId: String) {
+        guard let cacheUrl = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+        else { return }
+        let userProjectsRef = rootRef.child("user-projects").child(userId)
+        let storageRef = storage.reference()
+        
+        userProjectsRef.getData { (error, snapshot) in
+            if let snapshotDict = snapshot.value as? [String: Any] {
+                snapshotDict.forEach { (imageIdKey, projectInfo) in
+                    let imageRef = storageRef.child("images/" + imageIdKey + ".jpg")
+                    let localFileUrl = cacheUrl.appendingPathComponent(imageIdKey + ".jpg")
+                    imageRef.write(toFile: localFileUrl) { (url, error) in
+                        if let projectInfoDict = projectInfo as? [String: String] {
+                            let json = JSON.init(projectInfoDict)
+                            let project = Project.init(fromJSON: json)
+                            project.id = UUID.init(uuidString: imageIdKey)
+                            project.imageUrlPath = localFileUrl.absoluteString
+                            project.storeLocal()
+                            let didGetProjectNotification: NSNotification.Name = NSNotification.Name("didGetRemoteProject")
+                            NotificationCenter.default.post(name: didGetProjectNotification, object: nil, userInfo: ["project": project])
+                        }
+                    }
+                }
+            }
         }
     }
 
