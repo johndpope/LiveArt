@@ -18,8 +18,18 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let url = info[UIImagePickerController.InfoKey.imageURL] as? URL {
+            if let url = info[UIImagePickerController.InfoKey.imageURL] as? URL, let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 parent.imageUrlPath = url.path
+                if let storageDir = ProjectManager.storageDir?.appendingPathComponent(url.lastPathComponent) {
+                    if let jpegData = image.jpegData(compressionQuality: 1.0) {
+                        do {
+                            try jpegData.write(to: storageDir)
+                        } catch {
+                            print(error)
+                        }
+                    }
+                    
+                }
             }
             parent.presentationMode.wrappedValue.dismiss()
         }
@@ -32,7 +42,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         let picker = UIImagePickerController()
 //        picker.mediaTypes = ["public.movie"]
         picker.delegate = context.coordinator
-        picker.allowsEditing = false
+        picker.allowsEditing = true
         return picker
     }
     

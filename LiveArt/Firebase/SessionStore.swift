@@ -81,30 +81,30 @@ class SessionStore : ObservableObject {
     }
     
     func getProjects(userId: String) {
-        guard let cacheUrl = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
-        else { return }
-        let userProjectsRef = rootRef.child("user-projects").child(userId)
-        let storageRef = storage.reference()
-        
-        userProjectsRef.getData { (error, snapshot) in
-            if let snapshotDict = snapshot.value as? [String: Any] {
-                snapshotDict.forEach { (imageIdKey, projectInfo) in
-                    let imageRef = storageRef.child("images/" + imageIdKey + ".jpg")
-                    let localFileUrl = cacheUrl.appendingPathComponent(imageIdKey + ".jpg")
-                    imageRef.write(toFile: localFileUrl) { (url, error) in
-                        if let projectInfoDict = projectInfo as? [String: String] {
-                            let json = JSON.init(projectInfoDict)
-                            let project = Project.init(fromJSON: json)
-                            project.id = UUID.init(uuidString: imageIdKey)
-                            project.imageUrlPath = localFileUrl.absoluteString
-                            project.storeLocal()
-                            let didGetProjectNotification: NSNotification.Name = NSNotification.Name("didGetRemoteProject")
-                            NotificationCenter.default.post(name: didGetProjectNotification, object: nil, userInfo: ["project": project])
-                        }
-                    }
-                }
-            }
-        }
+//        guard let cacheUrl = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+//        else { return }
+//        let userProjectsRef = rootRef.child("user-projects").child(userId)
+//        let storageRef = storage.reference()
+//
+//        userProjectsRef.getData { (error, snapshot) in
+//            if let snapshotDict = snapshot.value as? [String: Any] {
+//                snapshotDict.forEach { (imageIdKey, projectInfo) in
+//                    let imageRef = storageRef.child("images/" + imageIdKey + ".jpg")
+//                    let localFileUrl = cacheUrl.appendingPathComponent(imageIdKey + ".jpg")
+//                    imageRef.write(toFile: localFileUrl) { (url, error) in
+//                        if let projectInfoDict = projectInfo as? [String: String] {
+//                            let json = JSON.init(projectInfoDict)
+//                            let project = Project.init(fromJSON: json)
+//                            project.id = UUID.init(uuidString: imageIdKey)
+//                            project.imageUrlPath = localFileUrl.absoluteString
+//                            project.storeLocal()
+//                            let didGetProjectNotification: NSNotification.Name = NSNotification.Name("didGetRemoteProject")
+//                            NotificationCenter.default.post(name: didGetProjectNotification, object: nil, userInfo: ["project": project])
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 
     func signOut () -> Bool {
