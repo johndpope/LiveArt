@@ -12,14 +12,23 @@ struct NewProjectView: View {
     @State private var showingImagePicker = false
     @State private var showingVideoEditor = false
     @State private var inputImageUUID: String?
-    @State private var projectTitle: String = "New Project"
+    @State private var projectTitle: String = ""
     @State var showCreateButton = false
     @State private var selectedImage: Image?
+    
+    @State private var isUsernameFirstResponder : Bool? = true
+    @State private var isPasswordFirstResponder : Bool? =  false
     
     var projectsModel: ProjectsViewModel
     var body: some View {
         VStack {
-            TextField("My project", text: $projectTitle)
+            CustomTextField(
+                placeHolderString: "Project Title",
+                text: $projectTitle,
+                nextResponder: $isPasswordFirstResponder,
+                isResponder: $isUsernameFirstResponder,
+                isSecured: false,
+                keyboard: .default)
                 .cornerRadius(38.5)
                 .frame(width: 350, height: 50)
                 .shadow(color: Color.black.opacity(0.3),
@@ -27,7 +36,7 @@ struct NewProjectView: View {
                         x: 3,
                         y: 3)
                 .multilineTextAlignment(.center)
-                .font(.largeTitle)
+                .font(.footnote)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
             
             if selectedImage != nil {
@@ -89,6 +98,84 @@ struct NewProjectView: View {
         }
     }
     
+}
+
+
+struct CustomTextField: UIViewRepresentable {
+
+  class Coordinator: NSObject, UITextFieldDelegate {
+
+     @Binding var text: String
+     @Binding var nextResponder : Bool?
+     @Binding var isResponder : Bool?
+     var parent: CustomTextField?
+
+
+    init(text: Binding<String>,nextResponder : Binding<Bool?> , isResponder : Binding<Bool?>, parent: CustomTextField) {
+       _text = text
+       _isResponder = isResponder
+       _nextResponder = nextResponder
+        self.parent = parent
+     }
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        parent?.presentationMode.wrappedValue.dismiss()
+    }
+
+     func textFieldDidChangeSelection(_ textField: UITextField) {
+       text = textField.text ?? ""
+     }
+
+     func textFieldDidBeginEditing(_ textField: UITextField) {
+        DispatchQueue.main.async {
+            self.isResponder = true
+        }
+     }
+
+     func textFieldDidEndEditing(_ textField: UITextField) {
+        DispatchQueue.main.async {
+            self.isResponder = false
+            if self.nextResponder != nil {
+                self.nextResponder = true
+            }
+        }
+     }
+ }
+    @Environment(\.presentationMode) var presentationMode
+    var placeHolderString: String
+    @Binding var text: String
+    @Binding var nextResponder : Bool?
+    @Binding var isResponder : Bool?
+
+    var isSecured : Bool = false
+    var keyboard : UIKeyboardType
+
+ func makeUIView(context: UIViewRepresentableContext<CustomTextField>) -> UITextField {
+     let textField = UITextField(frame: .zero)
+     textField.isSecureTextEntry = isSecured
+     textField.autocapitalizationType = .none
+     textField.autocorrectionType = .no
+     textField.keyboardType = keyboard
+     textField.textAlignment = .center
+     textField.placeholder = placeHolderString
+     textField.returnKeyType = .done
+     textField.delegate = context.coordinator
+     textField.borderStyle = .roundedRect
+     textField.delegate = context.coordinator
+     return textField
+ }
+
+ func makeCoordinator() -> CustomTextField.Coordinator {
+    return Coordinator(text: $text, nextResponder: $nextResponder, isResponder: $isResponder, parent: self)
+ }
+
+ func updateUIView(_ uiView: UITextField, context: UIViewRepresentableContext<CustomTextField>) {
+      uiView.text = text
+      if isResponder ?? false {
+          uiView.becomeFirstResponder()
+      }
+ }
+
 }
 
 struct NewProjectView_Previews: PreviewProvider {
