@@ -11,7 +11,7 @@ struct NewProjectView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @State private var showingImagePicker = false
     @State private var showingVideoEditor = false
-    @State private var inputImageUrl: String?
+    @State private var inputImageUUID: String?
     @State private var projectTitle: String = "New Project"
     @State var showCreateButton = false
     @State private var selectedImage: Image?
@@ -52,13 +52,13 @@ struct NewProjectView: View {
             Button.init("Select Image") {
                 showingImagePicker = true
             }.sheet(isPresented: $showingImagePicker, onDismiss: loadImage, content: {
-                ImagePicker.init(imageUrlPath: self.$inputImageUrl)
+                ImagePicker.init(imageUUID: self.$inputImageUUID)
             })
             Spacer()
             if showCreateButton {
                 Button(action: {
-                    if let imageUrl = inputImageUrl {
-                        self.projectsModel.createProject(title: projectTitle, imageUrlPath: imageUrl)
+                    if let imageId = inputImageUUID {
+                        self.projectsModel.createProject(title: projectTitle, imageUUID: imageId)
                         self.mode.wrappedValue.dismiss()
                     }
                 }, label: {
@@ -80,8 +80,9 @@ struct NewProjectView: View {
     }
     
     func loadImage() {
-        if let image = inputImageUrl {
-            if let uiImage = UIImage.init(contentsOfFile: image) {
+        if let image = inputImageUUID, let storageDir = ProjectManager.storageDir {
+            let imageUri = storageDir.appendingPathComponent(image)
+            if let uiImage = UIImage.init(contentsOfFile: imageUri.path) {
                 selectedImage = Image.init(uiImage: uiImage)
                 showCreateButton = true
             }

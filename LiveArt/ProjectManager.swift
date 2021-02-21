@@ -18,23 +18,33 @@ class ProjectManager {
             if !FileManager.default.fileExists(atPath: storageDir.absoluteString) {
                 try? FileManager.default.createDirectory(at: storageDir, withIntermediateDirectories: false, attributes: nil)
             }
-            ret = appSupportDir.appendingPathComponent("storage")
+            ret = storageDir
+        }
+        return ret
+    }
+    
+    static var projectDir: URL? {
+        var ret: URL?
+        if let storageUrl = storageDir {
+            let projectsUrl = storageUrl.appendingPathComponent("projects")
+            if !FileManager.default.fileExists(atPath: projectsUrl.absoluteString) {
+                try? FileManager.default.createDirectory(at: projectsUrl, withIntermediateDirectories: false, attributes: nil)
+            }
+            ret = projectsUrl
         }
         return ret
     }
     
     var projects = [Project]()
     init() {
-        if let cacheUrl = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first {
-            if let cachedFiles = try? FileManager.default.contentsOfDirectory(atPath: cacheUrl.path) {
-                cachedFiles.forEach { (file) in
-                    if file.contains(".json") {
-                        let cachedProjectUrl = cacheUrl.appendingPathComponent(file)
-                        if let jsonString = try? String.init(contentsOf: cachedProjectUrl) {
-                            let json = JSON.init(parseJSON: jsonString)
-                            let project = Project.init(fromJSON: json)
-                            self.projects.append(project)
-                        }
+        if let projectsDirUrl = ProjectManager.projectDir, let projectFiles = try? FileManager.default.contentsOfDirectory(atPath: projectsDirUrl.path) {
+            projectFiles.forEach { (file) in
+                if file.contains(".json") {
+                    let cachedProjectUrl = projectsDirUrl.appendingPathComponent(file)
+                    if let jsonString = try? String.init(contentsOf: cachedProjectUrl) {
+                        let json = JSON.init(parseJSON: jsonString)
+                        let project = Project.init(fromJSON: json)
+                        self.projects.append(project)
                     }
                 }
             }

@@ -22,6 +22,6 @@ struct ProjectViewItem: View {
 
 struct ProjectViewItem_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectViewItem(project: Project.init(title: "asdfasdf", imageUrlPath: ""))
+        ProjectViewItem(project: Project.init(title: "asdfasdf", imageUUID: ""))
     }
 }

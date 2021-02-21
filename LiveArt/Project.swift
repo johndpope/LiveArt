@@ -12,11 +12,11 @@ import SwiftyJSON
 class Project: JSONableObject, Identifiable {
     @objc dynamic var id: UUID?
     @objc dynamic var title: String?
-    @objc dynamic var imageUrlPath: String?
+    @objc dynamic var imageUUID: String?
     
-    init(title: String, imageUrlPath: String) {
+    init(title: String, imageUUID: String) {
         self.title = title
-        self.imageUrlPath = imageUrlPath
+        self.imageUUID = imageUUID
         self.id = UUID.init()
         super.init()
     }
@@ -29,7 +29,7 @@ class Project: JSONableObject, Identifiable {
         var mappings = [
             "id": "id",
             "title": "title",
-            "image_url_path": "imageUrlPath"
+            "image_uuid": "imageUUID"
         ]
         
         for (k, v) in super.getAllPropertyMappings() { mappings[k] = v }
@@ -38,9 +38,8 @@ class Project: JSONableObject, Identifiable {
     
     func getImage() -> UIImage {
         var ret = UIImage.init()
-        if let urlPath = imageUrlPath, let url = URL.init(string: urlPath) {
-//            let imagePath = NSTemporaryDirectory() + "/" + url.lastPathComponent
-            if let image = UIImage.init(contentsOfFile: urlPath) {
+        if let imageId = imageUUID, let imageUrl = ProjectManager.storageDir?.appendingPathComponent(imageId) {
+            if let image = UIImage.init(contentsOfFile: imageUrl.path) {
                 ret = image
             }
         }
@@ -48,14 +47,16 @@ class Project: JSONableObject, Identifiable {
     }
     
     func storeLocal() {
-        let paths = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)
-        if let projectId = id, let cacheUrl = paths.first?.appendingPathComponent(projectId.description + ".json") {
-            try? toJsonString()?.write(to: cacheUrl, atomically: true, encoding: .utf8)
+        if let projectsDirUrl = ProjectManager.projectDir {
+            if let projectId = id {
+                let cacheUrl = projectsDirUrl.appendingPathComponent(projectId.description + ".json")
+                try? toJsonString()?.write(to: cacheUrl, atomically: true, encoding: .utf8)
+            }
         }
     }
     
     func storeRemote() {
-        if let urlPath = imageUrlPath, let url = URL.init(string: urlPath), let idString = id?.description, let projTitle = title {
+        if let urlPath = imageUUID, let url = URL.init(string: urlPath), let idString = id?.description, let projTitle = title {
             let imagePath = NSTemporaryDirectory() + "/" + url.lastPathComponent
             gSessionStore.storeProject(imagePath: imagePath, projectId: idString, title: projTitle)
         }

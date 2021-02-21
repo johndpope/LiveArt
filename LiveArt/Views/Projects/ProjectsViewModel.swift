@@ -23,9 +23,9 @@ class ProjectsViewModel: ObservableObject {
         self.objectWillChange.send()
     }
     
-    func createProject(title: String, imageUrlPath: String) {
+    func createProject(title: String, imageUUID: String) {
         self.objectWillChange.send()
-        let p = Project(title: title, imageUrlPath: imageUrlPath)
+        let p = Project(title: title, imageUUID: imageUUID)
         self.projectManager.projects.append(p)
         p.storeLocal()
         p.storeRemote()
