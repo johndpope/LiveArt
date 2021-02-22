@@ -117,10 +117,6 @@ struct CustomTextField: UIViewRepresentable {
        _nextResponder = nextResponder
         self.parent = parent
      }
-    
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
-        parent?.presentationMode.wrappedValue.dismiss()
-    }
 
      func textFieldDidChangeSelection(_ textField: UITextField) {
        text = textField.text ?? ""
@@ -131,7 +127,9 @@ struct CustomTextField: UIViewRepresentable {
             self.isResponder = true
         }
      }
-
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
      func textFieldDidEndEditing(_ textField: UITextField) {
         DispatchQueue.main.async {
             self.isResponder = false
@@ -161,11 +159,10 @@ struct CustomTextField: UIViewRepresentable {
      textField.returnKeyType = .done
      textField.delegate = context.coordinator
      textField.borderStyle = .roundedRect
-     textField.delegate = context.coordinator
      return textField
  }
 
- func makeCoordinator() -> CustomTextField.Coordinator {
+ func makeCoordinator() -> Coordinator {
     return Coordinator(text: $text, nextResponder: $nextResponder, isResponder: $isResponder, parent: self)
  }
 
