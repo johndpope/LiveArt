@@ -9,7 +9,8 @@ import SwiftUI
 
 struct NewProjectView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
-    @State private var showingImagePicker = false
+    @State private var showingImagePicker = true
+    @State private var showingVideoPicker = false
     @State private var showingVideoEditor = false
     @State private var inputImageUUID: String?
     @State private var projectTitle: String = ""
@@ -22,70 +23,103 @@ struct NewProjectView: View {
     var projectsModel: ProjectsViewModel
     var body: some View {
         VStack {
-            CustomTextField(
-                placeHolderString: "Project Title",
-                text: $projectTitle,
-                nextResponder: $isPasswordFirstResponder,
-                isResponder: $isUsernameFirstResponder,
-                isSecured: false,
-                keyboard: .default)
-                .cornerRadius(38.5)
-                .frame(width: 350, height: 50)
-                .shadow(color: Color.black.opacity(0.3),
-                        radius: 3,
-                        x: 3,
-                        y: 3)
-                .multilineTextAlignment(.center)
-                .font(.footnote)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            
-            if selectedImage != nil {
-                selectedImage?
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 200, height: 200)
-                    .shadow(color: Color.black.opacity(0.3),
-                            radius: 3,
-                            x: 3,
-                            y: 3)
-            } else {
-                Rectangle()
-                    .fill(Color.white)
-                    .frame(width: 200, height: 200)
-                    .shadow(color: Color.black.opacity(0.3),
-                            radius: 3,
-                            x: 3,
-                            y: 3)
+            if showingImagePicker {
+                Text("Select Image To Print")
+                    .font(.largeTitle)
+                Spacer()
+                ImagePicker.init(imageUUID: self.$inputImageUUID, showingImagePicker: $showingImagePicker, showingVideoPicker: $showingVideoPicker)
+                    .navigationBarBackButtonHidden(true)
+            }
+            if showingVideoPicker {
+                Text("Attatch Video")
+                    .font(.largeTitle)
+                Spacer()
+                ImagePicker.init(imageUUID: self.$inputImageUUID, showingImagePicker: $showingImagePicker, showingVideoPicker: $showingVideoPicker)
+                    .navigationBarBackButtonHidden(true)
             }
             
-            Button.init("Select Image") {
-                showingImagePicker = true
-            }.sheet(isPresented: $showingImagePicker, onDismiss: loadImage, content: {
-                ImagePicker.init(imageUUID: self.$inputImageUUID)
-            })
-            Spacer()
-            if showCreateButton {
-                Button(action: {
-                    if let imageId = inputImageUUID {
-                        self.projectsModel.createProject(title: projectTitle, imageUUID: imageId)
-                        self.mode.wrappedValue.dismiss()
-                    }
-                }, label: {
-                    Text("Create")
-                        .font(.system(.largeTitle))
-                        .frame(width: 350, height: 50)
-                        .foregroundColor(Color.white)
-                        .padding(.bottom, 7)
-                })
-                .background(Color.blue)
-                .cornerRadius(38.5)
-                .padding()
-                .shadow(color: Color.black.opacity(0.3),
-                        radius: 3,
-                        x: 3,
-                        y: 3)
+            if !showingImagePicker && !showingVideoPicker {
+                Text("Done!")
+                    .navigationBarBackButtonHidden(false)
             }
         }
+        
+        
+        
+//        VStack {
+//            CustomTextField(
+//                placeHolderString: "Project Title",
+//                text: $projectTitle,
+//                nextResponder: $isPasswordFirstResponder,
+//                isResponder: $isUsernameFirstResponder,
+//                isSecured: false,
+//                keyboard: .default)
+//                .cornerRadius(38.5)
+//                .frame(width: 350, height: 50)
+//                .shadow(color: Color.black.opacity(0.3),
+//                        radius: 3,
+//                        x: 3,
+//                        y: 3)
+//                .multilineTextAlignment(.center)
+//                .font(.footnote)
+//                .textFieldStyle(RoundedBorderTextFieldStyle())
+//                .onChange(of: "thing", perform: { value in
+//                    print(value)
+//                })
+//
+//            if selectedImage != nil {
+//                selectedImage?
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: 200, height: 200)
+//                    .shadow(color: Color.black.opacity(0.3),
+//                            radius: 3,
+//                            x: 3,
+//                            y: 3)
+//            } else {
+//                Rectangle()
+//                    .fill(Color.white)
+//                    .frame(width: 200, height: 200)
+//                    .shadow(color: Color.black.opacity(0.3),
+//                            radius: 3,
+//                            x: 3,
+//                            y: 3)
+//            }
+//
+//            Button.init("Select Image") {
+//                showingImagePicker = true
+//            }.sheet(isPresented: $showingImagePicker, onDismiss: loadImage, content: {
+//                ImagePicker.init(imageUUID: self.$inputImageUUID)
+//            })
+//            Spacer()
+//            Button.init("Select Video") {
+//                showingImagePicker = true
+//            }.sheet(isPresented: $showingImagePicker, onDismiss: loadImage, content: {
+//                ImagePicker.init(imageUUID: self.$inputImageUUID)
+//            })
+//            Spacer()
+//            if showCreateButton {
+//                Button(action: {
+//                    if let imageId = inputImageUUID {
+//                        self.projectsModel.createProject(title: projectTitle, imageUUID: imageId)
+//                        self.mode.wrappedValue.dismiss()
+//                    }
+//                }, label: {
+//                    Text("Create")
+//                        .font(.system(.largeTitle))
+//                        .frame(width: 350, height: 50)
+//                        .foregroundColor(Color.white)
+//                        .padding(.bottom, 7)
+//                })
+//                .background(Color.blue)
+//                .cornerRadius(38.5)
+//                .padding()
+//                .shadow(color: Color.black.opacity(0.3),
+//                        radius: 3,
+//                        x: 3,
+//                        y: 3)
+//            }
+//        }
     }
     
     func loadImage() {
@@ -172,6 +206,9 @@ struct CustomTextField: UIViewRepresentable {
           uiView.becomeFirstResponder()
       }
  }
+    func doneButtonClicked(completion: @escaping () -> Void) {
+        
+    }
 
 }
 

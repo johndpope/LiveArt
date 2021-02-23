@@ -13,8 +13,9 @@ class Project: JSONableObject, Identifiable {
     @objc dynamic var id: UUID?
     @objc dynamic var title: String?
     @objc dynamic var imageUUID: String?
+    @objc dynamic var videoUUID: String?
     
-    init(title: String, imageUUID: String) {
+    init(title: String, imageUUID: String, videoUUID: String) {
         self.title = title
         self.imageUUID = imageUUID
         self.id = UUID.init()
@@ -29,7 +30,8 @@ class Project: JSONableObject, Identifiable {
         var mappings = [
             "id": "id",
             "title": "title",
-            "image_uuid": "imageUUID"
+            "image_uuid": "imageUUID",
+            "video_uuid": "videoUUID"
         ]
         
         for (k, v) in super.getAllPropertyMappings() { mappings[k] = v }

@@ -17,6 +17,10 @@ struct ImagePicker: UIViewControllerRepresentable {
             self.parent = parent
         }
         
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            parent.presentationMode.wrappedValue.dismiss()
+        }
+        
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let url = info[UIImagePickerController.InfoKey.imageURL] as? URL, let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 if let storageDir = ProjectManager.storageDir?.appendingPathComponent(url.lastPathComponent) {
@@ -31,17 +35,32 @@ struct ImagePicker: UIViewControllerRepresentable {
                     
                 }
             }
-            parent.presentationMode.wrappedValue.dismiss()
+            if parent.showingImagePicker {
+                parent.showingImagePicker = false
+                parent.showingVideoPicker = true
+            } else {
+                parent.showingImagePicker = false
+                parent.showingVideoPicker = false
+            }
         }
     }
     
     @Environment(\.presentationMode) var presentationMode
     @Binding var imageUUID: String?
     
+    @Binding var showingImagePicker: Bool
+    @Binding var showingVideoPicker: Bool
+    
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker >) -> some UIViewController {
         let picker = UIImagePickerController()
-//        picker.mediaTypes = ["public.movie"]
+        
+        if showingVideoPicker {
+            picker.mediaTypes = ["public.movie"]
+        }
+        
         picker.delegate = context.coordinator
+        picker.videoMaximumDuration = 30.0
+        picker.allowsEditing = true
         return picker
     }
     
