@@ -43,6 +43,7 @@ struct NewProjectView: View {
             
             if !showingImagePicker && !showingVideoPicker {
                 VideoPlayer(player: AVPlayer(url:  (ProjectManager.storageDir?.appendingPathComponent(inputVideoUUID!))!))
+                    
                 selectedImage?
                     .resizable()
                     .scaledToFit()
@@ -53,8 +54,8 @@ struct NewProjectView: View {
                             y: 3)
 
                 Button(action: {
-                    if let imageId = inputImageUUID {
-                        self.projectsModel.createProject(title: projectTitle, imageUUID: imageId)
+                    if let imageId = inputImageUUID, let videoId = inputVideoUUID {
+                        self.projectsModel.createProject(title: projectTitle, imageUUID: imageId, videoUUID: videoId)
                         self.mode.wrappedValue.dismiss()
                     }
                 }, label: {

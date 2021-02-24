@@ -18,6 +18,7 @@ class Project: JSONableObject, Identifiable {
     init(title: String, imageUUID: String, videoUUID: String) {
         self.title = title
         self.imageUUID = imageUUID
+        self.videoUUID = videoUUID
         self.id = UUID.init()
         super.init()
     }
@@ -58,9 +59,8 @@ class Project: JSONableObject, Identifiable {
     }
     
     func storeRemote() {
-        if let urlPath = imageUUID, let url = URL.init(string: urlPath), let idString = id?.description, let projTitle = title {
-            let imagePath = NSTemporaryDirectory() + "/" + url.lastPathComponent
-            gSessionStore.storeProject(imagePath: imagePath, projectId: idString, title: projTitle)
+        if let imageId = imageUUID, let imageUrl = ProjectManager.storageDir?.appendingPathComponent(imageId), let idString = id?.description, let projTitle = title, let videoId = videoUUID, let videoUrl = ProjectManager.storageDir?.appendingPathComponent(videoId) {
+            gSessionStore.storeProject(imagePath: imageUrl.absoluteString, videoPath: videoUrl.absoluteString, projectId: idString )
         }
     }
 }

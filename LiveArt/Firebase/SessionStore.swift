@@ -62,21 +62,30 @@ class SessionStore : ObservableObject {
         rootRef.child("users").child(uid).setValue(["firstname": firstName, "lastname": lastName, "email": email])
     }
     
-    func storeProject(imagePath: String, projectId: String, title: String) {
+    func storeProject(imagePath: String, videoPath: String, projectId: String) {
         let storageRef = storage.reference()
-        let localFile = URL(string: "file://" + imagePath)!
+        let localImageUrl = URL(string: imagePath)!
+        let localVideoUrl = URL(string: videoPath)!
         
         let imageRef = storageRef.child("images/" + projectId + ".jpg")
+        let videoRef = storageRef.child("videos/" + projectId + ".mov")
 
-        let uploadTask = imageRef.putFile(from: localFile, metadata: nil) { metadata, error in
+        let uploadImageTask = imageRef.putFile(from: localImageUrl, metadata: nil) { metadata, error in
             if error != nil {
                 print("there was error")
             }
         }
-        uploadTask.resume()
+        uploadImageTask.resume()
+        
+        let uploadVideoTask = videoRef.putFile(from: localVideoUrl, metadata: nil) { metadata, error in
+            if error != nil {
+                print("there was error")
+            }
+        }
+        uploadVideoTask.resume()
         
         if let userId = session?.uid {
-            rootRef.child("user-projects").child(userId + "/" + projectId).setValue(["title": title])
+//            rootRef.child("user-projects").child(userId + "/" + projectId).setValue(["title": title])
         }
     }
     
