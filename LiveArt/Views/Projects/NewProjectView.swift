@@ -6,120 +6,76 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct NewProjectView: View {
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
     @State private var showingImagePicker = true
     @State private var showingVideoPicker = false
-    @State private var showingVideoEditor = false
+    
     @State private var inputImageUUID: String?
+    @State private var inputVideoUUID: String?
+    
+    @State private var showingVideoEditor = false
+    
     @State private var projectTitle: String = ""
-    @State var showCreateButton = false
     @State private var selectedImage: Image?
     
-    @State private var isUsernameFirstResponder : Bool? = true
-    @State private var isPasswordFirstResponder : Bool? =  false
-    
     var projectsModel: ProjectsViewModel
+    
     var body: some View {
         VStack {
             if showingImagePicker {
                 Text("Select Image To Print")
                     .font(.largeTitle)
                 Spacer()
-                ImagePicker.init(imageUUID: self.$inputImageUUID, showingImagePicker: $showingImagePicker, showingVideoPicker: $showingVideoPicker)
+                ImagePicker.init(imageUUID: self.$inputImageUUID, videoUUID: self.$inputVideoUUID, showingImagePicker: $showingImagePicker, showingVideoPicker: $showingVideoPicker)
                     .navigationBarBackButtonHidden(true)
             }
             if showingVideoPicker {
                 Text("Attatch Video")
                     .font(.largeTitle)
                 Spacer()
-                ImagePicker.init(imageUUID: self.$inputImageUUID, showingImagePicker: $showingImagePicker, showingVideoPicker: $showingVideoPicker)
+                ImagePicker.init(imageUUID: self.$inputImageUUID, videoUUID: self.$inputVideoUUID, showingImagePicker: $showingImagePicker, showingVideoPicker: $showingVideoPicker)
                     .navigationBarBackButtonHidden(true)
             }
             
             if !showingImagePicker && !showingVideoPicker {
-                Text("Done!")
-                    .navigationBarBackButtonHidden(false)
+                VideoPlayer(player: AVPlayer(url:  (ProjectManager.storageDir?.appendingPathComponent(inputVideoUUID!))!))
+                selectedImage?
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 200, height: 200)
+                    .shadow(color: Color.black.opacity(0.3),
+                            radius: 3,
+                            x: 3,
+                            y: 3)
+
+                Button(action: {
+                    if let imageId = inputImageUUID {
+                        self.projectsModel.createProject(title: projectTitle, imageUUID: imageId)
+                        self.mode.wrappedValue.dismiss()
+                    }
+                }, label: {
+                    Text("Checkout")
+                        .font(.system(.largeTitle))
+                        .frame(width: 350, height: 50)
+                        .foregroundColor(Color.white)
+                        .padding(.bottom, 7)
+                })
+                .background(Color.blue)
+                .cornerRadius(38.5)
+                .padding()
+                .shadow(color: Color.black.opacity(0.3),
+                        radius: 3,
+                        x: 3,
+                        y: 3)
+                .onAppear(perform: {
+                    loadImage()
+                })
             }
         }
-        
-        
-        
-//        VStack {
-//            CustomTextField(
-//                placeHolderString: "Project Title",
-//                text: $projectTitle,
-//                nextResponder: $isPasswordFirstResponder,
-//                isResponder: $isUsernameFirstResponder,
-//                isSecured: false,
-//                keyboard: .default)
-//                .cornerRadius(38.5)
-//                .frame(width: 350, height: 50)
-//                .shadow(color: Color.black.opacity(0.3),
-//                        radius: 3,
-//                        x: 3,
-//                        y: 3)
-//                .multilineTextAlignment(.center)
-//                .font(.footnote)
-//                .textFieldStyle(RoundedBorderTextFieldStyle())
-//                .onChange(of: "thing", perform: { value in
-//                    print(value)
-//                })
-//
-//            if selectedImage != nil {
-//                selectedImage?
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: 200, height: 200)
-//                    .shadow(color: Color.black.opacity(0.3),
-//                            radius: 3,
-//                            x: 3,
-//                            y: 3)
-//            } else {
-//                Rectangle()
-//                    .fill(Color.white)
-//                    .frame(width: 200, height: 200)
-//                    .shadow(color: Color.black.opacity(0.3),
-//                            radius: 3,
-//                            x: 3,
-//                            y: 3)
-//            }
-//
-//            Button.init("Select Image") {
-//                showingImagePicker = true
-//            }.sheet(isPresented: $showingImagePicker, onDismiss: loadImage, content: {
-//                ImagePicker.init(imageUUID: self.$inputImageUUID)
-//            })
-//            Spacer()
-//            Button.init("Select Video") {
-//                showingImagePicker = true
-//            }.sheet(isPresented: $showingImagePicker, onDismiss: loadImage, content: {
-//                ImagePicker.init(imageUUID: self.$inputImageUUID)
-//            })
-//            Spacer()
-//            if showCreateButton {
-//                Button(action: {
-//                    if let imageId = inputImageUUID {
-//                        self.projectsModel.createProject(title: projectTitle, imageUUID: imageId)
-//                        self.mode.wrappedValue.dismiss()
-//                    }
-//                }, label: {
-//                    Text("Create")
-//                        .font(.system(.largeTitle))
-//                        .frame(width: 350, height: 50)
-//                        .foregroundColor(Color.white)
-//                        .padding(.bottom, 7)
-//                })
-//                .background(Color.blue)
-//                .cornerRadius(38.5)
-//                .padding()
-//                .shadow(color: Color.black.opacity(0.3),
-//                        radius: 3,
-//                        x: 3,
-//                        y: 3)
-//            }
-//        }
     }
     
     func loadImage() {
@@ -127,11 +83,9 @@ struct NewProjectView: View {
             let imageUri = storageDir.appendingPathComponent(image)
             if let uiImage = UIImage.init(contentsOfFile: imageUri.path) {
                 selectedImage = Image.init(uiImage: uiImage)
-                showCreateButton = true
             }
         }
     }
-    
 }
 
 

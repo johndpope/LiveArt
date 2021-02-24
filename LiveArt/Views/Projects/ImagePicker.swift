@@ -22,17 +22,28 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
         
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let url = info[UIImagePickerController.InfoKey.imageURL] as? URL, let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                if let storageDir = ProjectManager.storageDir?.appendingPathComponent(url.lastPathComponent) {
-                    parent.imageUUID = url.lastPathComponent
-                    if let jpegData = image.jpegData(compressionQuality: 1.0) {
-                        do {
-                            try jpegData.write(to: storageDir)
-                        } catch {
-                            print(error)
+            if parent.showingImagePicker {
+                if let url = info[UIImagePickerController.InfoKey.imageURL] as? URL, let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                    if let storageDir = ProjectManager.storageDir?.appendingPathComponent(url.lastPathComponent) {
+                        parent.imageUUID = url.lastPathComponent
+                        if let jpegData = image.jpegData(compressionQuality: 1.0) {
+                            do {
+                                try jpegData.write(to: storageDir)
+                            } catch {
+                                print(error)
+                            }
                         }
+                        
                     }
-                    
+                }
+            } else {
+                if let videoUrl = info[.mediaURL] as? URL, let storageDir = ProjectManager.storageDir?.appendingPathComponent(videoUrl.lastPathComponent) {
+                    do {
+                        try FileManager.default.copyItem(at: videoUrl, to: storageDir)
+                        parent.videoUUID = videoUrl.lastPathComponent
+                    } catch {
+                        print(error)
+                    }
                 }
             }
             if parent.showingImagePicker {
@@ -47,6 +58,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     
     @Environment(\.presentationMode) var presentationMode
     @Binding var imageUUID: String?
+    @Binding var videoUUID: String?
     
     @Binding var showingImagePicker: Bool
     @Binding var showingVideoPicker: Bool
