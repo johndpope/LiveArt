@@ -26,6 +26,7 @@ struct NewProjectView: View {
     
     var body: some View {
         VStack {
+            
             if showingImagePicker {
                 Text("Select Image To Print")
                     .font(.largeTitle)
@@ -40,18 +41,19 @@ struct NewProjectView: View {
                 ImagePicker.init(imageUUID: self.$inputImageUUID, videoUUID: self.$inputVideoUUID, showingImagePicker: $showingImagePicker, showingVideoPicker: $showingVideoPicker)
                     .navigationBarBackButtonHidden(true)
             }
-            
+
             if !showingImagePicker && !showingVideoPicker {
-                VideoPlayer(player: AVPlayer(url:  (ProjectManager.storageDir?.appendingPathComponent(inputVideoUUID!))!))
-                    
-                selectedImage?
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 200, height: 200)
-                    .shadow(color: Color.black.opacity(0.3),
-                            radius: 3,
-                            x: 3,
-                            y: 3)
+                ImageVideoPlayer(imageUUID: $inputImageUUID, videoUUID: $inputVideoUUID)
+//                VideoPlayer(player: AVPlayer(url:  (ProjectManager.storageDir?.appendingPathComponent(inputVideoUUID!))!))
+//
+//                selectedImage?
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: 200, height: 200)
+//                    .shadow(color: Color.black.opacity(0.3),
+//                            radius: 3,
+//                            x: 3,
+//                            y: 3)
 
                 Button(action: {
                     if let imageId = inputImageUUID, let videoId = inputVideoUUID {

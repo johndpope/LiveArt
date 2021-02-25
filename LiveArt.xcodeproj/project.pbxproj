@@ -15,6 +15,7 @@
 		458A6AEB25BD9F7B001517E9 /* NewProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458A6AEA25BD9F7B001517E9 /* NewProjectView.swift */; };
 		458A6AF025BDB002001517E9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458A6AEF25BDB002001517E9 /* ImagePicker.swift */; };
 		4591283225D6987F006D4B9A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4591283125D6987F006D4B9A /* GoogleService-Info.plist */; };
+		45A5BFCF25E723F5009B93BD /* ImageVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A5BFCE25E723F5009B93BD /* ImageVideoPlayer.swift */; };
 		45AEC49B25BCA4CE001BF888 /* LiveArtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AEC49A25BCA4CE001BF888 /* LiveArtApp.swift */; };
 		45AEC49D25BCA4CE001BF888 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AEC49C25BCA4CE001BF888 /* ContentView.swift */; };
 		45AEC49F25BCA4D0001BF888 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45AEC49E25BCA4D0001BF888 /* Assets.xcassets */; };
@@ -68,6 +69,7 @@
 		458A6AEA25BD9F7B001517E9 /* NewProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectView.swift; sourceTree = "<group>"; };
 		458A6AEF25BDB002001517E9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		4591283125D6987F006D4B9A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Users/calebmitcler/Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		45A5BFCE25E723F5009B93BD /* ImageVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageVideoPlayer.swift; sourceTree = "<group>"; };
 		45AEC49725BCA4CE001BF888 /* LiveArt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveArt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45AEC49A25BCA4CE001BF888 /* LiveArtApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveArtApp.swift; sourceTree = "<group>"; };
 		45AEC49C25BCA4CE001BF888 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				45B9E6F325BCE71C002B905D /* ProjectViewItem.swift */,
 				45B9E6F825BCE741002B905D /* NewProjectViewItem.swift */,
 				458A6AEA25BD9F7B001517E9 /* NewProjectView.swift */,
+				45A5BFCE25E723F5009B93BD /* ImageVideoPlayer.swift */,
 			);
 			path = Projects;
 			sourceTree = "<group>";
@@ -563,6 +566,7 @@
 				45BECB8B25D86AB600A34746 /* SignInView.swift in Sources */,
 				45B9E6E125BCE2F9002B905D /* AccountView.swift in Sources */,
 				451AD4E425DD3AB70061D7D3 /* JSONableObject.swift in Sources */,
+				45A5BFCF25E723F5009B93BD /* ImageVideoPlayer.swift in Sources */,
 				45B9E6EE25BCE650002B905D /* ProjectManager.swift in Sources */,
 				456FFDA925D69A6D00742B7E /* SignUpView.swift in Sources */,
 				45B9E6E625BCE3C5002B905D /* Project.swift in Sources */,
