@@ -44,6 +44,11 @@ class PreviewViewController: UIViewController {
     var imageId: String?
     var videoId: String?
     
+    var videoPlayer: AVPlayer?
+    var imageView: UIImageView?
+    
+    var isPlaying = false
+    
     
     init(imageId: String?, videoId: String?) {
         super.init(nibName: nil, bundle: nil)
@@ -55,19 +60,43 @@ class PreviewViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         if let imageUUID = imageId, let imageUrl = ProjectManager.storageDir?.appendingPathComponent(imageUUID), let videoUUID = videoId, let videoUrl = ProjectManager.storageDir?.appendingPathComponent(videoUUID) {
-            let player = AVPlayer.init(url: videoUrl)
-            let playerLayer = AVPlayerLayer(player: player)
+            self.videoPlayer = AVPlayer.init(url: videoUrl)
+            let playerLayer = AVPlayerLayer(player: videoPlayer)
             playerLayer.frame = self.view.bounds
-            self.view.layer.addSublayer(playerLayer)
-            player.play()
+            let v = UIView.init(frame: CGRect.init(x: 0.0, y: 0.0, width: 0.0, height: 0.0))
+            self.view.addSubview(v)
+            v.layer.addSublayer(playerLayer)
             
-//            let image = UIImage.init(contentsOfFile: imageUrl.path)
-//            let imageView = UIImageView.init(image: image)
-//            imageView.frame = CGRect.init(x: self.view.frame.width / 2.0, y: self.view.frame.height / 2.0, width: 200.0, height: 200.0)
-//            self.view.addSubview(imageView)
+            
+            let image = UIImage.init(contentsOfFile: imageUrl.path)
+            imageView = UIImageView.init(image: image)
+            imageView?.frame = CGRect.init(x: 0.0, y: 0.0, width: 250.0, height: 500.0)
+            imageView?.contentMode = .scaleAspectFit
+
+
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+            
+            if let iv = imageView {
+                self.view.addSubview(iv)
+                iv.isUserInteractionEnabled = true
+                iv.addGestureRecognizer(tapGestureRecognizer)
+            }
         }
     }
     
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        if isPlaying {
+            isPlaying = false
+            videoPlayer?.pause()
+        } else {
+            isPlaying = true
+            videoPlayer?.play()
+        }
+    }
 }
