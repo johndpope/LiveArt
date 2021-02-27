@@ -9,12 +9,6 @@ import Foundation
 import os.log
 import SwiftyJSON
 
-#if os(iOS)
-import UIKit
-#else
-import Cocoa
-#endif
-
 protocol JSONable {
     func toJsonData() -> Data?
     func toJsonString() -> String?

@@ -65,29 +65,36 @@ class PreviewViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if let imageUUID = imageId, let imageUrl = ProjectManager.storageDir?.appendingPathComponent(imageUUID), let videoUUID = videoId, let videoUrl = ProjectManager.storageDir?.appendingPathComponent(videoUUID) {
-            self.videoPlayer = AVPlayer.init(url: videoUrl)
-            let playerLayer = AVPlayerLayer(player: videoPlayer)
-            playerLayer.frame = self.view.bounds
-            let v = UIView.init(frame: CGRect.init(x: 0.0, y: 0.0, width: 0.0, height: 0.0))
-            self.view.addSubview(v)
-            v.layer.addSublayer(playerLayer)
-            
-            
-            let image = UIImage.init(contentsOfFile: imageUrl.path)
-            imageView = UIImageView.init(image: image)
-            imageView?.frame = CGRect.init(x: 0.0, y: 0.0, width: 250.0, height: 500.0)
-            imageView?.contentMode = .scaleAspectFit
-
-
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-            
-            if let iv = imageView {
-                self.view.addSubview(iv)
-                iv.isUserInteractionEnabled = true
-                iv.addGestureRecognizer(tapGestureRecognizer)
-            }
+        
+        if let vidId = self.videoId {
+            let videoCropper = VideoCropperViewController.init(videoUUID: vidId)
+            videoCropper.view.frame = self.view.frame
+            self.view.addSubview(videoCropper.view)
+            addChild(videoCropper)
         }
+//        if let imageUUID = imageId, let imageUrl = ProjectManager.storageDir?.appendingPathComponent(imageUUID), let videoUUID = videoId, let videoUrl = ProjectManager.storageDir?.appendingPathComponent(videoUUID) {
+//            self.videoPlayer = AVPlayer.init(url: videoUrl)
+//            let playerLayer = AVPlayerLayer(player: videoPlayer)
+//            playerLayer.frame = self.view.bounds
+//            let v = UIView.init(frame: CGRect.init(x: 0.0, y: 0.0, width: 0.0, height: 0.0))
+//            self.view.addSubview(v)
+//            v.layer.addSublayer(playerLayer)
+//
+//
+//            let image = UIImage.init(contentsOfFile: imageUrl.path)
+//            imageView = UIImageView.init(image: image)
+//            imageView?.frame = CGRect.init(x: 0.0, y: 0.0, width: 250.0, height: 500.0)
+//            imageView?.contentMode = .scaleAspectFit
+//
+//
+//            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+//
+//            if let iv = imageView {
+//                self.view.addSubview(iv)
+//                iv.isUserInteractionEnabled = true
+//                iv.addGestureRecognizer(tapGestureRecognizer)
+//            }
+//        }
     }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {

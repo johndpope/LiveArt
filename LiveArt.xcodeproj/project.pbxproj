@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1180BD2841A2A1C3C6B55DD6 /* Pods_LiveArtTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3C8724AFA8A008455CB2C38 /* Pods_LiveArtTests.framework */; };
+		450E44CE25EA7BF3009C7450 /* VideoCropperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450E44CD25EA7BF3009C7450 /* VideoCropperViewController.swift */; };
+		450E44FD25EAD19A009C7450 /* VideoCropperViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 450E44FC25EAD19A009C7450 /* VideoCropperViewController.xib */; };
+		450E450225EAE62D009C7450 /* ImageVideoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450E450125EAE62D009C7450 /* ImageVideoPicker.swift */; };
 		451AD4E425DD3AB70061D7D3 /* JSONableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451AD4E325DD3AB70061D7D3 /* JSONableObject.swift */; };
 		45472D8B25DDD79800AAE56D /* ObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 45472D8A25DDD79800AAE56D /* ObjC.m */; };
 		456FFDA925D69A6D00742B7E /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456FFDA825D69A6D00742B7E /* SignUpView.swift */; };
@@ -22,7 +25,6 @@
 		45AEC4A225BCA4D0001BF888 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45AEC4A125BCA4D0001BF888 /* Preview Assets.xcassets */; };
 		45AEC4AD25BCA4D0001BF888 /* LiveArtTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AEC4AC25BCA4D0001BF888 /* LiveArtTests.swift */; };
 		45AEC4B825BCA4D0001BF888 /* LiveArtUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AEC4B725BCA4D0001BF888 /* LiveArtUITests.swift */; };
-		45AF757225D498B5006A59F4 /* VideoEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF757125D498B5006A59F4 /* VideoEditor.swift */; };
 		45AF757A25D53F51006A59F4 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF757925D53F51006A59F4 /* CameraView.swift */; };
 		45AF758025D54052006A59F4 /* AugmentedCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF757F25D54052006A59F4 /* AugmentedCamera.swift */; };
 		45AF758525D54479006A59F4 /* 49B5122E-CB9B-4EDF-8A52-DD63373C2540_1_105_c.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 45AF758425D54479006A59F4 /* 49B5122E-CB9B-4EDF-8A52-DD63373C2540_1_105_c.jpeg */; };
@@ -60,6 +62,9 @@
 		09635F2D0EFE34F1681DFE78 /* Pods-LiveArt-LiveArtUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveArt-LiveArtUITests.debug.xcconfig"; path = "Target Support Files/Pods-LiveArt-LiveArtUITests/Pods-LiveArt-LiveArtUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		22F2590DC2141148BA2E6E1D /* Pods-LiveArt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveArt.release.xcconfig"; path = "Target Support Files/Pods-LiveArt/Pods-LiveArt.release.xcconfig"; sourceTree = "<group>"; };
 		357CF8A404FBB8CDE64D0415 /* Pods-LiveArtTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiveArtTests.release.xcconfig"; path = "Target Support Files/Pods-LiveArtTests/Pods-LiveArtTests.release.xcconfig"; sourceTree = "<group>"; };
+		450E44CD25EA7BF3009C7450 /* VideoCropperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCropperViewController.swift; sourceTree = "<group>"; };
+		450E44FC25EAD19A009C7450 /* VideoCropperViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoCropperViewController.xib; sourceTree = "<group>"; };
+		450E450125EAE62D009C7450 /* ImageVideoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageVideoPicker.swift; sourceTree = "<group>"; };
 		451AD4E325DD3AB70061D7D3 /* JSONableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONableObject.swift; sourceTree = "<group>"; };
 		45472D8925DDD79800AAE56D /* LiveArt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveArt-Bridging-Header.h"; sourceTree = "<group>"; };
 		45472D8A25DDD79800AAE56D /* ObjC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjC.m; sourceTree = "<group>"; };
@@ -82,7 +87,6 @@
 		45AEC4B325BCA4D0001BF888 /* LiveArtUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiveArtUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		45AEC4B725BCA4D0001BF888 /* LiveArtUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveArtUITests.swift; sourceTree = "<group>"; };
 		45AEC4B925BCA4D0001BF888 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		45AF757125D498B5006A59F4 /* VideoEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoEditor.swift; sourceTree = "<group>"; };
 		45AF757925D53F51006A59F4 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		45AF757F25D54052006A59F4 /* AugmentedCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedCamera.swift; sourceTree = "<group>"; };
 		45AF758425D54479006A59F4 /* 49B5122E-CB9B-4EDF-8A52-DD63373C2540_1_105_c.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "49B5122E-CB9B-4EDF-8A52-DD63373C2540_1_105_c.jpeg"; sourceTree = "<group>"; };
@@ -235,13 +239,15 @@
 			isa = PBXGroup;
 			children = (
 				458A6AEF25BDB002001517E9 /* ImagePicker.swift */,
-				45AF757125D498B5006A59F4 /* VideoEditor.swift */,
 				458A6ADD25BD1B07001517E9 /* ProjectsViewModel.swift */,
 				45B9E6D225BCE244002B905D /* ProjectsView.swift */,
 				45B9E6F325BCE71C002B905D /* ProjectViewItem.swift */,
 				45B9E6F825BCE741002B905D /* NewProjectViewItem.swift */,
 				458A6AEA25BD9F7B001517E9 /* NewProjectView.swift */,
 				45A5BFCE25E723F5009B93BD /* ImageVideoPlayer.swift */,
+				450E44CD25EA7BF3009C7450 /* VideoCropperViewController.swift */,
+				450E44FC25EAD19A009C7450 /* VideoCropperViewController.xib */,
+				450E450125EAE62D009C7450 /* ImageVideoPicker.swift */,
 			);
 			path = Projects;
 			sourceTree = "<group>";
@@ -391,6 +397,7 @@
 				45AEC4A225BCA4D0001BF888 /* Preview Assets.xcassets in Resources */,
 				4591283225D6987F006D4B9A /* GoogleService-Info.plist in Resources */,
 				45AF758525D54479006A59F4 /* 49B5122E-CB9B-4EDF-8A52-DD63373C2540_1_105_c.jpeg in Resources */,
+				450E44FD25EAD19A009C7450 /* VideoCropperViewController.xib in Resources */,
 				45AEC49F25BCA4D0001BF888 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -554,11 +561,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				458A6AF025BDB002001517E9 /* ImagePicker.swift in Sources */,
+				450E450225EAE62D009C7450 /* ImageVideoPicker.swift in Sources */,
 				45B9E6D825BCE2B1002B905D /* ChatView.swift in Sources */,
 				45AF758025D54052006A59F4 /* AugmentedCamera.swift in Sources */,
 				45AF757A25D53F51006A59F4 /* CameraView.swift in Sources */,
 				45B9E6F425BCE71C002B905D /* ProjectViewItem.swift in Sources */,
-				45AF757225D498B5006A59F4 /* VideoEditor.swift in Sources */,
 				45B9E6D325BCE244002B905D /* ProjectsView.swift in Sources */,
 				45472D8B25DDD79800AAE56D /* ObjC.m in Sources */,
 				45AEC49D25BCA4CE001BF888 /* ContentView.swift in Sources */,
@@ -568,6 +575,7 @@
 				451AD4E425DD3AB70061D7D3 /* JSONableObject.swift in Sources */,
 				45A5BFCF25E723F5009B93BD /* ImageVideoPlayer.swift in Sources */,
 				45B9E6EE25BCE650002B905D /* ProjectManager.swift in Sources */,
+				450E44CE25EA7BF3009C7450 /* VideoCropperViewController.swift in Sources */,
 				456FFDA925D69A6D00742B7E /* SignUpView.swift in Sources */,
 				45B9E6E625BCE3C5002B905D /* Project.swift in Sources */,
 				45BECB8625D8669900A34746 /* SessionStore.swift in Sources */,

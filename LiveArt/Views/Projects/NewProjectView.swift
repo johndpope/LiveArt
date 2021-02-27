@@ -26,24 +26,24 @@ struct NewProjectView: View {
     
     var body: some View {
         VStack {
-            
-            if showingImagePicker {
-                Text("Select Image To Print")
-                    .font(.largeTitle)
-                Spacer()
-                ImagePicker.init(imageUUID: self.$inputImageUUID, videoUUID: self.$inputVideoUUID, showingImagePicker: $showingImagePicker, showingVideoPicker: $showingVideoPicker)
-                    .navigationBarBackButtonHidden(true)
-            }
-            if showingVideoPicker {
-                Text("Attatch Video")
-                    .font(.largeTitle)
-                Spacer()
-                ImagePicker.init(imageUUID: self.$inputImageUUID, videoUUID: self.$inputVideoUUID, showingImagePicker: $showingImagePicker, showingVideoPicker: $showingVideoPicker)
-                    .navigationBarBackButtonHidden(true)
-            }
+            ImageVideoPicker.init()
+//            if showingImagePicker {
+//                Text("Select Image To Print")
+//                    .font(.largeTitle)
+//                Spacer()
+//                ImagePicker.init(imageUUID: self.$inputImageUUID, videoUUID: self.$inputVideoUUID, showingImagePicker: $showingImagePicker, showingVideoPicker: $showingVideoPicker)
+//                    .navigationBarBackButtonHidden(true)
+//            }
+//            if showingVideoPicker {
+//                Text("Attatch Video")
+//                    .font(.largeTitle)
+//                Spacer()
+//                ImagePicker.init(imageUUID: self.$inputImageUUID, videoUUID: self.$inputVideoUUID, showingImagePicker: $showingImagePicker, showingVideoPicker: $showingVideoPicker)
+//                    .navigationBarBackButtonHidden(true)
+//            }
 
             if !showingImagePicker && !showingVideoPicker {
-                ImageVideoPlayer(imageUUID: $inputImageUUID, videoUUID: $inputVideoUUID)
+//                ImageVideoPlayer(imageUUID: $inputImageUUID, videoUUID: $inputVideoUUID)
 //                VideoPlayer(player: AVPlayer(url:  (ProjectManager.storageDir?.appendingPathComponent(inputVideoUUID!))!))
 //
 //                selectedImage?
