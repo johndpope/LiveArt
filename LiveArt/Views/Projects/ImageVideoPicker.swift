@@ -9,7 +9,20 @@ import Foundation
 import SwiftUI
 
 struct ImageVideoPicker: UIViewControllerRepresentable {
-    class Coordinator: NSObject {
+    
+    class Coordinator: NSObject, ImagePickerMessageDelegate {
+        func didSelectImage() {
+            parent.labelText = "Crop Image"
+        }
+        
+        func didCropImage() {
+            parent.labelText = "Select Video"
+        }
+        
+        func didSelectVideo() {
+            parent.labelText = "Crop Video"
+        }
+        
         let parent: ImageVideoPicker
         
         init(_ parent: ImageVideoPicker) {
@@ -17,9 +30,11 @@ struct ImageVideoPicker: UIViewControllerRepresentable {
         }
     }
     @Environment(\.presentationMode) var presentationMode
+    @Binding var labelText: String?
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImageVideoPicker >) -> some UIViewController {
         let imageVideoPickerVC = ImagePickerViewController.init()
+        imageVideoPickerVC.delegate = context.coordinator
         return imageVideoPickerVC
     }
     
@@ -32,6 +47,11 @@ struct ImageVideoPicker: UIViewControllerRepresentable {
     }
 }
 
+protocol ImagePickerMessageDelegate {
+    func didSelectImage()
+    func didCropImage()
+    func didSelectVideo()
+}
 class ImagePickerViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, VideoCropDelegate, ImageCropDelegate {
     
     var imagePicker: UIImagePickerController?
@@ -40,7 +60,8 @@ class ImagePickerViewController: UIViewController, UIImagePickerControllerDelega
     var selectedVideoUUID: String?
     var imageCropperViewController: ImageCropperViewController?
     var videoCropperViewController: VideoCropperViewController?
-
+    var delegate: ImagePickerMessageDelegate?
+    
     override func viewDidLoad() {
     
         imagePicker = UIImagePickerController.init()
@@ -67,6 +88,7 @@ class ImagePickerViewController: UIViewController, UIImagePickerControllerDelega
                     } catch {
                         print(error)
                     }
+                    delegate?.didSelectImage()
                     imageCropperViewController = ImageCropperViewController.init(imageUUID: selectedImageUUID!)
                     imageCropperViewController?.view.frame = self.view.frame
                     if let imageCropper = imageCropperViewController {
@@ -86,6 +108,7 @@ class ImagePickerViewController: UIViewController, UIImagePickerControllerDelega
                 //show the video cropper
                 videoCropperViewController = VideoCropperViewController.init(videoUUID: videoUrl.lastPathComponent)
                 if let videoCropper = videoCropperViewController {
+                    delegate?.didSelectVideo()
                     videoCropper.delegate = self
                     self.view.addSubview(videoCropper.view)
                     addChild(videoCropper)
@@ -106,6 +129,7 @@ class ImagePickerViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     func didFinishImageCrop() {
+        delegate?.didCropImage()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.025) {
             self.videoPicker = UIImagePickerController.init()
             self.videoPicker?.allowsEditing = true
@@ -116,12 +140,10 @@ class ImagePickerViewController: UIViewController, UIImagePickerControllerDelega
             if let picker = self.videoPicker {
                 self.view.addSubview(picker.view)
                 self.addChild(picker)
-            picker.delegate = self
-        }
+                picker.delegate = self
+            }
         }
     }
     
-    func didCancelImageCrop() {
-        
-    }
+    func didCancelImageCrop() {}
 }

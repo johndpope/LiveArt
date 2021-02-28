@@ -22,11 +22,20 @@ struct NewProjectView: View {
     @State private var projectTitle: String = ""
     @State private var selectedImage: Image?
     
+    @State private var labelText: String?
+    
     var projectsModel: ProjectsViewModel
     
     var body: some View {
-        VStack {
-            ImageVideoPicker.init()
+//        VStack {
+        if let text = labelText {
+            Text(text)
+        } else {
+            Text("Select Image")
+        }
+        
+        ImageVideoPicker(labelText: $labelText)
+                .navigationBarBackButtonHidden(true)
 //            if showingImagePicker {
 //                Text("Select Image To Print")
 //                    .font(.largeTitle)
@@ -42,7 +51,7 @@ struct NewProjectView: View {
 //                    .navigationBarBackButtonHidden(true)
 //            }
 
-            if !showingImagePicker && !showingVideoPicker {
+//            if !showingImagePicker && !showingVideoPicker {
 //                ImageVideoPlayer(imageUUID: $inputImageUUID, videoUUID: $inputVideoUUID)
 //                VideoPlayer(player: AVPlayer(url:  (ProjectManager.storageDir?.appendingPathComponent(inputVideoUUID!))!))
 //
@@ -55,30 +64,30 @@ struct NewProjectView: View {
 //                            x: 3,
 //                            y: 3)
 
-                Button(action: {
-                    if let imageId = inputImageUUID, let videoId = inputVideoUUID {
-                        self.projectsModel.createProject(title: projectTitle, imageUUID: imageId, videoUUID: videoId)
-                        self.mode.wrappedValue.dismiss()
-                    }
-                }, label: {
-                    Text("Checkout")
-                        .font(.system(.largeTitle))
-                        .frame(width: 350, height: 50)
-                        .foregroundColor(Color.white)
-                        .padding(.bottom, 7)
-                })
-                .background(Color.blue)
-                .cornerRadius(38.5)
-                .padding()
-                .shadow(color: Color.black.opacity(0.3),
-                        radius: 3,
-                        x: 3,
-                        y: 3)
-                .onAppear(perform: {
-                    loadImage()
-                })
-            }
-        }
+//                Button(action: {
+//                    if let imageId = inputImageUUID, let videoId = inputVideoUUID {
+//                        self.projectsModel.createProject(title: projectTitle, imageUUID: imageId, videoUUID: videoId)
+//                        self.mode.wrappedValue.dismiss()
+//                    }
+//                }, label: {
+//                    Text("Checkout")
+//                        .font(.system(.largeTitle))
+//                        .frame(width: 350, height: 50)
+//                        .foregroundColor(Color.white)
+//                        .padding(.bottom, 7)
+//                })
+//                .background(Color.blue)
+//                .cornerRadius(38.5)
+//                .padding()
+//                .shadow(color: Color.black.opacity(0.3),
+//                        radius: 3,
+//                        x: 3,
+//                        y: 3)
+//                .onAppear(perform: {
+//                    loadImage()
+//                })
+//            }
+//        }
     }
     
     func loadImage() {
