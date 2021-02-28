@@ -11,7 +11,8 @@ import PryntTrimmerView
 import AVKit
 
 protocol VideoCropDelegate {
-    func didFinishCropping()
+    func didFinishVideoCrop()
+    func didCancelVideoCrop()
 }
 class VideoCropperViewController: UIViewController {
     var videoUUID: String?
@@ -59,7 +60,7 @@ class VideoCropperViewController: UIViewController {
             }
 
             try? prepareAssetComposition()
-            delegate?.didFinishCropping()
+            delegate?.didFinishVideoCrop()
         }
     }
     

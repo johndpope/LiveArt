@@ -9,10 +9,15 @@ import Foundation
 import UIKit
 import TOCropViewController
 
+protocol ImageCropDelegate {
+    func didFinishImageCrop()
+    func didCancelImageCrop()
+}
 class ImageCropperViewController: UIViewController, TOCropViewControllerDelegate {
     
     var imageUUID: String?
     var imageCropper: TOCropViewController?
+    var delegate: ImageCropDelegate?
     
     init(imageUUID: String) {
         super.init(nibName: nil, bundle: nil)
@@ -34,7 +39,10 @@ class ImageCropperViewController: UIViewController, TOCropViewControllerDelegate
     }
     
     func cropViewController(_ cropViewController: TOCropViewController, didCropTo image: UIImage, with cropRect: CGRect, angle: Int) {
-        print("break")
+        delegate?.didFinishImageCrop()
+    }
+    func cropViewController(_ cropViewController: TOCropViewController, didFinishCancelled cancelled: Bool) {
+        delegate?.didCancelImageCrop()
     }
 
     required init?(coder: NSCoder) {

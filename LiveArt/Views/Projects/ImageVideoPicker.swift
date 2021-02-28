@@ -32,13 +32,15 @@ struct ImageVideoPicker: UIViewControllerRepresentable {
     }
 }
 
-class ImagePickerViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, VideoCropDelegate {
+class ImagePickerViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, VideoCropDelegate, ImageCropDelegate {
     
     var imagePicker: UIImagePickerController?
     var videoPicker: UIImagePickerController?
     var selectedImageUUID: String?
     var selectedVideoUUID: String?
-    
+    var imageCropperViewController: ImageCropperViewController?
+    var videoCropperViewController: VideoCropperViewController?
+
     override func viewDidLoad() {
     
         imagePicker = UIImagePickerController.init()
@@ -65,23 +67,13 @@ class ImagePickerViewController: UIViewController, UIImagePickerControllerDelega
                     } catch {
                         print(error)
                     }
-                    let imageCropper = ImageCropperViewController.init(imageUUID: selectedImageUUID!)
-                    imageCropper.view.frame = self.view.frame
-                    view.addSubview(imageCropper.view)
-                    addChild(imageCropper)
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.025) {
-//                        self.videoPicker = UIImagePickerController.init()
-//                        self.videoPicker?.allowsEditing = true
-//                        self.videoPicker?.mediaTypes = ["public.movie"]
-//                        self.videoPicker?.delegate = self
-//                        self.videoPicker?.videoMaximumDuration = 30.0
-//                        self.videoPicker?.view.frame = self.view.frame
-//                        if let picker = self.videoPicker {
-//                            self.view.addSubview(picker.view)
-//                            self.addChild(picker)
-//                        picker.delegate = self
-//                    }
-//                    }
+                    imageCropperViewController = ImageCropperViewController.init(imageUUID: selectedImageUUID!)
+                    imageCropperViewController?.view.frame = self.view.frame
+                    if let imageCropper = imageCropperViewController {
+                        imageCropper.delegate = self
+                        view.addSubview(imageCropper.view)
+                        addChild(imageCropper)
+                    }
                 }
             }
         }
@@ -92,9 +84,12 @@ class ImagePickerViewController: UIViewController, UIImagePickerControllerDelega
                 self.selectedVideoUUID = videoUrl.lastPathComponent
                 try FileManager.default.copyItem(at: videoUrl, to: storageDir)
                 //show the video cropper
-                let videoCropper = VideoCropperViewController.init(videoUUID: videoUrl.lastPathComponent)
-                self.view.addSubview(videoCropper.view)
-                addChild(videoCropper)
+                videoCropperViewController = VideoCropperViewController.init(videoUUID: videoUrl.lastPathComponent)
+                if let videoCropper = videoCropperViewController {
+                    videoCropper.delegate = self
+                    self.view.addSubview(videoCropper.view)
+                    addChild(videoCropper)
+                }
             } catch {
                 print(error)
             }
@@ -102,7 +97,31 @@ class ImagePickerViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     
-    func didFinishCropping() {
+    func didFinishVideoCrop() {
+        
+    }
+    
+    func didCancelVideoCrop() {
+        
+    }
+    
+    func didFinishImageCrop() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.025) {
+            self.videoPicker = UIImagePickerController.init()
+            self.videoPicker?.allowsEditing = true
+            self.videoPicker?.mediaTypes = ["public.movie"]
+            self.videoPicker?.delegate = self
+            self.videoPicker?.videoMaximumDuration = 30.0
+            self.videoPicker?.view.frame = self.view.frame
+            if let picker = self.videoPicker {
+                self.view.addSubview(picker.view)
+                self.addChild(picker)
+            picker.delegate = self
+        }
+        }
+    }
+    
+    func didCancelImageCrop() {
         
     }
 }
