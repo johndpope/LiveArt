@@ -65,19 +65,23 @@ class ImagePickerViewController: UIViewController, UIImagePickerControllerDelega
                     } catch {
                         print(error)
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.025) {
-                        self.videoPicker = UIImagePickerController.init()
-                        self.videoPicker?.allowsEditing = true
-                        self.videoPicker?.mediaTypes = ["public.movie"]
-                        self.videoPicker?.delegate = self
-                        self.videoPicker?.videoMaximumDuration = 30.0
-                        self.videoPicker?.view.frame = self.view.frame
-                        if let picker = self.videoPicker {
-                            self.view.addSubview(picker.view)
-                            self.addChild(picker)
-                        picker.delegate = self
-                    }
-                    }
+                    let imageCropper = ImageCropperViewController.init(imageUUID: selectedImageUUID!)
+                    imageCropper.view.frame = self.view.frame
+                    view.addSubview(imageCropper.view)
+                    addChild(imageCropper)
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.025) {
+//                        self.videoPicker = UIImagePickerController.init()
+//                        self.videoPicker?.allowsEditing = true
+//                        self.videoPicker?.mediaTypes = ["public.movie"]
+//                        self.videoPicker?.delegate = self
+//                        self.videoPicker?.videoMaximumDuration = 30.0
+//                        self.videoPicker?.view.frame = self.view.frame
+//                        if let picker = self.videoPicker {
+//                            self.view.addSubview(picker.view)
+//                            self.addChild(picker)
+//                        picker.delegate = self
+//                    }
+//                    }
                 }
             }
         }

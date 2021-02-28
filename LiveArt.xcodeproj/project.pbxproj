@@ -28,6 +28,7 @@
 		45AF757A25D53F51006A59F4 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF757925D53F51006A59F4 /* CameraView.swift */; };
 		45AF758025D54052006A59F4 /* AugmentedCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF757F25D54052006A59F4 /* AugmentedCamera.swift */; };
 		45AF758525D54479006A59F4 /* 49B5122E-CB9B-4EDF-8A52-DD63373C2540_1_105_c.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 45AF758425D54479006A59F4 /* 49B5122E-CB9B-4EDF-8A52-DD63373C2540_1_105_c.jpeg */; };
+		45B05B7425EB12D60032999E /* ImageCropperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B05B7325EB12D60032999E /* ImageCropperViewController.swift */; };
 		45B9E6D325BCE244002B905D /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B9E6D225BCE244002B905D /* ProjectsView.swift */; };
 		45B9E6D825BCE2B1002B905D /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B9E6D725BCE2B1002B905D /* ChatView.swift */; };
 		45B9E6E125BCE2F9002B905D /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B9E6E025BCE2F9002B905D /* AccountView.swift */; };
@@ -90,6 +91,7 @@
 		45AF757925D53F51006A59F4 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		45AF757F25D54052006A59F4 /* AugmentedCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedCamera.swift; sourceTree = "<group>"; };
 		45AF758425D54479006A59F4 /* 49B5122E-CB9B-4EDF-8A52-DD63373C2540_1_105_c.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "49B5122E-CB9B-4EDF-8A52-DD63373C2540_1_105_c.jpeg"; sourceTree = "<group>"; };
+		45B05B7325EB12D60032999E /* ImageCropperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCropperViewController.swift; sourceTree = "<group>"; };
 		45B9E6D225BCE244002B905D /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
 		45B9E6D725BCE2B1002B905D /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		45B9E6E025BCE2F9002B905D /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				450E44CD25EA7BF3009C7450 /* VideoCropperViewController.swift */,
 				450E44FC25EAD19A009C7450 /* VideoCropperViewController.xib */,
 				450E450125EAE62D009C7450 /* ImageVideoPicker.swift */,
+				45B05B7325EB12D60032999E /* ImageCropperViewController.swift */,
 			);
 			path = Projects;
 			sourceTree = "<group>";
@@ -581,6 +584,7 @@
 				45BECB8625D8669900A34746 /* SessionStore.swift in Sources */,
 				458A6ADE25BD1B07001517E9 /* ProjectsViewModel.swift in Sources */,
 				45B9E6F925BCE741002B905D /* NewProjectViewItem.swift in Sources */,
+				45B05B7425EB12D60032999E /* ImageCropperViewController.swift in Sources */,
 				458A6AEB25BD9F7B001517E9 /* NewProjectView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
