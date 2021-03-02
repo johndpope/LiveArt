@@ -130,7 +130,6 @@ class VideoCropperViewController: UIViewController {
                     do {
                         try FileManager.default.replaceItemAt(storageDir, withItemAt: url, backupItemName: nil, options: .usingNewMetadataOnly)
                         self.delegate?.didFinishVideoCrop()
-//                        try FileManager.default.copyItem(at: url, to: storageDir)
                     } catch {
                         print(error)
                     }

@@ -40,8 +40,14 @@ class ImageCropperViewController: UIViewController, TOCropViewControllerDelegate
             }
         }
     }
-    
     func cropViewController(_ cropViewController: TOCropViewController, didCropTo image: UIImage, with cropRect: CGRect, angle: Int) {
+        if let imageId = imageUUID, let storageDir = ProjectManager.storageDir?.appendingPathComponent(imageId) {
+            do {
+                try image.jpegData(compressionQuality: 1.0)?.write(to: storageDir)
+            } catch {
+                print(error)
+            }
+        }
         delegate?.didFinishImageCrop()
     }
     func cropViewController(_ cropViewController: TOCropViewController, didFinishCancelled cancelled: Bool) {
