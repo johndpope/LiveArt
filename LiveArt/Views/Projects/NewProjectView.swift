@@ -27,15 +27,41 @@ struct NewProjectView: View {
     var projectsModel: ProjectsViewModel
     
     var body: some View {
-//        VStack {
-        if let text = labelText {
-            Text(text)
-        } else {
-            Text("Select Image")
+        VStack {
+            
+            if inputImageUUID == nil && inputVideoUUID == nil{
+                if let text = labelText {
+                    Text(text)
+                        .font(.title)
+                } else {
+                    Text("Select Image")
+                        .font(.title)
+                }
+                ImageVideoPicker(labelText: $labelText, imageUUID: $inputImageUUID, videoUUID: $inputVideoUUID)
+                    .navigationBarBackButtonHidden(true)
+            } else {
+                ImageVideoPlayer(imageUUID: $inputImageUUID, videoUUID: $inputVideoUUID)
+                Button(action: {
+                    if let imageId = inputImageUUID, let videoId = inputVideoUUID {
+                        self.projectsModel.createProject(title: projectTitle, imageUUID: imageId, videoUUID: videoId)
+                        self.mode.wrappedValue.dismiss()
+                    }
+                }, label: {
+                    Text("Checkout")
+                        .font(.system(.largeTitle))
+                        .frame(width: 350, height: 50)
+                        .foregroundColor(Color.white)
+                        .padding(.bottom, 7)
+                })
+                .background(Color.blue)
+                .cornerRadius(38.5)
+                .padding()
+                .shadow(color: Color.black.opacity(0.3),
+                        radius: 3,
+                        x: 3,
+                        y: 3)
+            }
         }
-        
-        ImageVideoPicker(labelText: $labelText)
-                .navigationBarBackButtonHidden(true)
 //            if showingImagePicker {
 //                Text("Select Image To Print")
 //                    .font(.largeTitle)

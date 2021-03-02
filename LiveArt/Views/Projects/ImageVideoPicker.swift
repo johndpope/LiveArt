@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ImageVideoPicker: UIViewControllerRepresentable {
     
-    class Coordinator: NSObject, ImagePickerMessageDelegate {
+    class Coordinator: NSObject, ImageVideoPickerDelegate {
         func didSelectImage() {
             parent.labelText = "Crop Image"
         }
@@ -22,7 +22,14 @@ struct ImageVideoPicker: UIViewControllerRepresentable {
         func didSelectVideo() {
             parent.labelText = "Crop Video"
         }
+        func didCancelImagePicking() {
+            parent.presentationMode.wrappedValue.dismiss()
+        }
         
+        func didCropVideo(imageUUID: String, videoUUID: String) {
+            parent.imageUUID = imageUUID
+            parent.videoUUID = videoUUID
+        }
         let parent: ImageVideoPicker
         
         init(_ parent: ImageVideoPicker) {
@@ -31,6 +38,9 @@ struct ImageVideoPicker: UIViewControllerRepresentable {
     }
     @Environment(\.presentationMode) var presentationMode
     @Binding var labelText: String?
+    
+    @Binding var imageUUID: String?
+    @Binding var videoUUID: String?
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<ImageVideoPicker >) -> some UIViewController {
         let imageVideoPickerVC = ImagePickerViewController.init()
@@ -47,10 +57,12 @@ struct ImageVideoPicker: UIViewControllerRepresentable {
     }
 }
 
-protocol ImagePickerMessageDelegate {
+protocol ImageVideoPickerDelegate {
     func didSelectImage()
     func didCropImage()
     func didSelectVideo()
+    func didCancelImagePicking()
+    func didCropVideo(imageUUID: String, videoUUID: String)
 }
 class ImagePickerViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, VideoCropDelegate, ImageCropDelegate {
     
@@ -60,7 +72,7 @@ class ImagePickerViewController: UIViewController, UIImagePickerControllerDelega
     var selectedVideoUUID: String?
     var imageCropperViewController: ImageCropperViewController?
     var videoCropperViewController: VideoCropperViewController?
-    var delegate: ImagePickerMessageDelegate?
+    var delegate: ImageVideoPickerDelegate?
     
     override func viewDidLoad() {
     
@@ -72,6 +84,10 @@ class ImagePickerViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         self.view.backgroundColor = .green
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        delegate?.didCancelImagePicking()
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -121,11 +137,19 @@ class ImagePickerViewController: UIViewController, UIImagePickerControllerDelega
     
     
     func didFinishVideoCrop() {
-        
+        if let imageId = selectedImageUUID, let videoId = selectedVideoUUID {
+            delegate?.didCropVideo(imageUUID: imageId, videoUUID: videoId)
+        }
     }
     
     func didCancelVideoCrop() {
-        
+        videoCropperViewController?.removeFromParent()
+        videoCropperViewController?.view.removeFromSuperview()
+        if let picker = imagePicker {
+            view.addSubview(picker.view)
+            addChild(picker)
+            picker.delegate = self
+        }
     }
     
     func didFinishImageCrop() {
@@ -145,5 +169,13 @@ class ImagePickerViewController: UIViewController, UIImagePickerControllerDelega
         }
     }
     
-    func didCancelImageCrop() {}
+    func didCancelImageCrop() {
+        imageCropperViewController?.removeFromParent()
+        imageCropperViewController?.view.removeFromSuperview()
+        if let picker = imagePicker {
+            view.addSubview(picker.view)
+            addChild(picker)
+            picker.delegate = self
+        }
+    }
 }

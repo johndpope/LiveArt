@@ -29,6 +29,9 @@ class ImageCropperViewController: UIViewController, TOCropViewControllerDelegate
             if let image = UIImage.init(contentsOfFile: imageUrl.path) {
                 self.imageCropper = TOCropViewController.init(image: image)
                 if let cropper = self.imageCropper {
+                    cropper.allowedAspectRatios = [NSNumber.init(value: TOCropViewControllerAspectRatioPreset.preset7x5.rawValue)]
+                    cropper.aspectRatioLockEnabled = true
+                    cropper.aspectRatioPickerButtonHidden = true
                     cropper.view.frame = self.view.frame
                     cropper.delegate = self
                     addChild(cropper)

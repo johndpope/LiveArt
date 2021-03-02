@@ -19,19 +19,27 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2h3-x1-9wV" customClass="VideoCropView" customModule="PryntTrimmerView">
-                    <rect key="frame" x="20" y="174" width="374" height="374"/>
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2h3-x1-9wV" customClass="VideoCropView" customModule="PryntTrimmerView">
+                    <rect key="frame" x="20" y="44" width="374" height="374"/>
                     <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="2h3-x1-9wV" secondAttribute="height" multiplier="1:1" id="nh2-vc-hz8"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yF2-5g-OsX">
-                    <rect key="frame" x="189" y="556" width="37" height="30"/>
+                    <rect key="frame" x="189" y="433" width="37" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Done"/>
                     <connections>
                         <action selector="doneClicked:" destination="-1" eventType="touchUpInside" id="k2r-ja-PPZ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JaX-Qd-gtW">
+                    <rect key="frame" x="254" y="433" width="48" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Cancel"/>
+                    <connections>
+                        <action selector="cancelButtonClicked:" destination="-1" eventType="touchUpInside" id="F3h-kN-3g3"/>
                     </connections>
                 </button>
             </subviews>

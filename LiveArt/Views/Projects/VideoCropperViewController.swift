@@ -60,9 +60,13 @@ class VideoCropperViewController: UIViewController {
             }
 
             try? prepareAssetComposition()
-            delegate?.didFinishVideoCrop()
         }
     }
+    
+    @IBAction func cancelButtonClicked(_ sender: Any) {
+        delegate?.didCancelVideoCrop()
+    }
+    
     
     func prepareAssetComposition() throws {
 
@@ -122,8 +126,15 @@ class VideoCropperViewController: UIViewController {
 
             DispatchQueue.main.async {
 
-                if let url = exportSession?.outputURL, exportSession?.status == .completed {
-                    UISaveVideoAtPathToSavedPhotosAlbum(url.path, nil, nil, nil)
+                if let url = exportSession?.outputURL, exportSession?.status == .completed, let videoId = self.videoUUID, let storageDir = ProjectManager.storageDir?.appendingPathComponent(videoId) {
+                    do {
+                        try FileManager.default.replaceItemAt(storageDir, withItemAt: url, backupItemName: nil, options: .usingNewMetadataOnly)
+                        self.delegate?.didFinishVideoCrop()
+//                        try FileManager.default.copyItem(at: url, to: storageDir)
+                    } catch {
+                        print(error)
+                    }
+
                 } else {
                     let error = exportSession?.error
                     print("error exporting video \(String(describing: error))")
