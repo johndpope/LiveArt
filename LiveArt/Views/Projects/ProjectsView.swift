@@ -24,8 +24,8 @@ struct ProjectsView: View {
                 ], spacing: 12, content: {
                     ForEach(0..<projects.count, id: \.self) { num in
                         HStack {
-                                NavigationLink(destination: NewProjectView.init(projectsModel: projectModel)) {
-                                    let project = projects[num]
+                            let project = projects[num]
+                                NavigationLink(destination: ProjectView(project: project)) {
                                     ProjectViewItem(project: project)
                                         .shadow(radius: 10)
                                 }

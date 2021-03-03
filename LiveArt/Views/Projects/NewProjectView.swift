@@ -32,13 +32,13 @@ struct NewProjectView: View {
             if inputImageUUID == nil && inputVideoUUID == nil{
                 if let text = labelText {
                     Text(text)
-                        .font(.title)
+                        .font(.system(size: 60))
                 } else {
                     Text("Select Image")
-                        .font(.title)
+                        .font(.system(size: 60))
                 }
+                Spacer()
                 ImageVideoPicker(labelText: $labelText, imageUUID: $inputImageUUID, videoUUID: $inputVideoUUID)
-                    .navigationBarBackButtonHidden(true)
             } else {
                 ImageVideoPlayer(imageUUID: $inputImageUUID, videoUUID: $inputVideoUUID)
                 Button(action: {

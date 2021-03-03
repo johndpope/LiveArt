@@ -13,10 +13,10 @@
 		450E450225EAE62D009C7450 /* ImageVideoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 450E450125EAE62D009C7450 /* ImageVideoPicker.swift */; };
 		451AD4E425DD3AB70061D7D3 /* JSONableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451AD4E325DD3AB70061D7D3 /* JSONableObject.swift */; };
 		45472D8B25DDD79800AAE56D /* ObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 45472D8A25DDD79800AAE56D /* ObjC.m */; };
+		45616F7E25EF264A001B10DD /* ProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45616F7D25EF264A001B10DD /* ProjectView.swift */; };
 		456FFDA925D69A6D00742B7E /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456FFDA825D69A6D00742B7E /* SignUpView.swift */; };
 		458A6ADE25BD1B07001517E9 /* ProjectsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458A6ADD25BD1B07001517E9 /* ProjectsViewModel.swift */; };
 		458A6AEB25BD9F7B001517E9 /* NewProjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458A6AEA25BD9F7B001517E9 /* NewProjectView.swift */; };
-		458A6AF025BDB002001517E9 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458A6AEF25BDB002001517E9 /* ImagePicker.swift */; };
 		4591283225D6987F006D4B9A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4591283125D6987F006D4B9A /* GoogleService-Info.plist */; };
 		45A5BFCF25E723F5009B93BD /* ImageVideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A5BFCE25E723F5009B93BD /* ImageVideoPlayer.swift */; };
 		45AEC49B25BCA4CE001BF888 /* LiveArtApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AEC49A25BCA4CE001BF888 /* LiveArtApp.swift */; };
@@ -70,10 +70,10 @@
 		45472D8925DDD79800AAE56D /* LiveArt-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LiveArt-Bridging-Header.h"; sourceTree = "<group>"; };
 		45472D8A25DDD79800AAE56D /* ObjC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjC.m; sourceTree = "<group>"; };
 		45472D8F25DDD7BA00AAE56D /* ObjC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjC.h; sourceTree = "<group>"; };
+		45616F7D25EF264A001B10DD /* ProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectView.swift; sourceTree = "<group>"; };
 		456FFDA825D69A6D00742B7E /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		458A6ADD25BD1B07001517E9 /* ProjectsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsViewModel.swift; sourceTree = "<group>"; };
 		458A6AEA25BD9F7B001517E9 /* NewProjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProjectView.swift; sourceTree = "<group>"; };
-		458A6AEF25BDB002001517E9 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		4591283125D6987F006D4B9A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Users/calebmitcler/Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		45A5BFCE25E723F5009B93BD /* ImageVideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageVideoPlayer.swift; sourceTree = "<group>"; };
 		45AEC49725BCA4CE001BF888 /* LiveArt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiveArt.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -240,7 +240,6 @@
 		45B9E6F225BCE704002B905D /* Projects */ = {
 			isa = PBXGroup;
 			children = (
-				458A6AEF25BDB002001517E9 /* ImagePicker.swift */,
 				458A6ADD25BD1B07001517E9 /* ProjectsViewModel.swift */,
 				45B9E6D225BCE244002B905D /* ProjectsView.swift */,
 				45B9E6F325BCE71C002B905D /* ProjectViewItem.swift */,
@@ -251,6 +250,7 @@
 				450E44FC25EAD19A009C7450 /* VideoCropperViewController.xib */,
 				450E450125EAE62D009C7450 /* ImageVideoPicker.swift */,
 				45B05B7325EB12D60032999E /* ImageCropperViewController.swift */,
+				45616F7D25EF264A001B10DD /* ProjectView.swift */,
 			);
 			path = Projects;
 			sourceTree = "<group>";
@@ -563,7 +563,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				458A6AF025BDB002001517E9 /* ImagePicker.swift in Sources */,
 				450E450225EAE62D009C7450 /* ImageVideoPicker.swift in Sources */,
 				45B9E6D825BCE2B1002B905D /* ChatView.swift in Sources */,
 				45AF758025D54052006A59F4 /* AugmentedCamera.swift in Sources */,
@@ -579,6 +578,7 @@
 				45A5BFCF25E723F5009B93BD /* ImageVideoPlayer.swift in Sources */,
 				45B9E6EE25BCE650002B905D /* ProjectManager.swift in Sources */,
 				450E44CE25EA7BF3009C7450 /* VideoCropperViewController.swift in Sources */,
+				45616F7E25EF264A001B10DD /* ProjectView.swift in Sources */,
 				456FFDA925D69A6D00742B7E /* SignUpView.swift in Sources */,
 				45B9E6E625BCE3C5002B905D /* Project.swift in Sources */,
 				45BECB8625D8669900A34746 /* SessionStore.swift in Sources */,
