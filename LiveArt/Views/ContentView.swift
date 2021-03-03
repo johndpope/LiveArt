@@ -18,29 +18,30 @@ struct ContentView: View {
     }
     
     var body: some View {
-        TabView() {
-            ProjectsView(projectModel: model)
-                .tabItem {
-                    Image(systemName: "square.grid.2x2")
-                    Text("Projects")
-                }
-            CameraView()
-                .tabItem {
-                    Image(systemName: "square.stack.3d.up")
-                        .font(.system(size: 150, weight: .bold))
-                        .foregroundColor(.red)
-                    Text("View")
-                }
-            AccountView()
-                .environmentObject(session)
-                .tabItem {
-                    Image(systemName: "person.crop.circle")
-                    Text("Account")
-                }
-        }.onAppear(perform: {
-            session.listen()
-        })
-        .font(.headline)
+        ProjectsView(projectModel: model)
+//        TabView() {
+//            ProjectsView(projectModel: model)
+//                .tabItem {
+//                    Image(systemName: "square.grid.2x2")
+//                    Text("Projects")
+//                }
+//            CameraView()
+//                .tabItem {
+//                    Image(systemName: "square.stack.3d.up")
+//                        .font(.system(size: 150, weight: .bold))
+//                        .foregroundColor(.red)
+//                    Text("View")
+//                }
+//            AccountView()
+//                .environmentObject(session)
+//                .tabItem {
+//                    Image(systemName: "person.crop.circle")
+//                    Text("Account")
+//                }
+//        }.onAppear(perform: {
+//            session.listen()
+//        })
+//        .font(.headline)
     }
 }
 

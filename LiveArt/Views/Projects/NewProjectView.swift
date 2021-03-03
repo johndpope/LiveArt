@@ -40,80 +40,23 @@ struct NewProjectView: View {
                 Spacer()
                 ImageVideoPicker(labelText: $labelText, imageUUID: $inputImageUUID, videoUUID: $inputVideoUUID)
             } else {
-                ImageVideoPlayer(imageUUID: $inputImageUUID, videoUUID: $inputVideoUUID)
-                Button(action: {
-                    if let imageId = inputImageUUID, let videoId = inputVideoUUID {
-                        self.projectsModel.createProject(title: projectTitle, imageUUID: imageId, videoUUID: videoId)
-                        self.mode.wrappedValue.dismiss()
-                    }
-                }, label: {
-                    Text("Checkout")
-                        .font(.system(.largeTitle))
-                        .frame(width: 350, height: 50)
-                        .foregroundColor(Color.white)
-                        .padding(.bottom, 7)
-                })
-                .background(Color.blue)
-                .cornerRadius(38.5)
-                .padding()
-                .shadow(color: Color.black.opacity(0.3),
-                        radius: 3,
-                        x: 3,
-                        y: 3)
+                ImageVideoPlayer(imageUUID: inputImageUUID, videoUUID: inputVideoUUID)
+                NavigationLink(destination: BuyNowView()) {
+                Text("Buy Now")
+                    .font(.system(.largeTitle))
+                    .frame(width: 350, height: 50)
+                    .foregroundColor(Color.white)
+                    .padding(.bottom, 7)
+                    .background(Color.blue)
+                    .cornerRadius(38.5)
+                    .padding()
+                    .shadow(color: Color.black.opacity(0.3),
+                            radius: 3,
+                            x: 3,
+                            y: 3)
+                }
             }
         }
-//            if showingImagePicker {
-//                Text("Select Image To Print")
-//                    .font(.largeTitle)
-//                Spacer()
-//                ImagePicker.init(imageUUID: self.$inputImageUUID, videoUUID: self.$inputVideoUUID, showingImagePicker: $showingImagePicker, showingVideoPicker: $showingVideoPicker)
-//                    .navigationBarBackButtonHidden(true)
-//            }
-//            if showingVideoPicker {
-//                Text("Attatch Video")
-//                    .font(.largeTitle)
-//                Spacer()
-//                ImagePicker.init(imageUUID: self.$inputImageUUID, videoUUID: self.$inputVideoUUID, showingImagePicker: $showingImagePicker, showingVideoPicker: $showingVideoPicker)
-//                    .navigationBarBackButtonHidden(true)
-//            }
-
-//            if !showingImagePicker && !showingVideoPicker {
-//                ImageVideoPlayer(imageUUID: $inputImageUUID, videoUUID: $inputVideoUUID)
-//                VideoPlayer(player: AVPlayer(url:  (ProjectManager.storageDir?.appendingPathComponent(inputVideoUUID!))!))
-//
-//                selectedImage?
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: 200, height: 200)
-//                    .shadow(color: Color.black.opacity(0.3),
-//                            radius: 3,
-//                            x: 3,
-//                            y: 3)
-
-//                Button(action: {
-//                    if let imageId = inputImageUUID, let videoId = inputVideoUUID {
-//                        self.projectsModel.createProject(title: projectTitle, imageUUID: imageId, videoUUID: videoId)
-//                        self.mode.wrappedValue.dismiss()
-//                    }
-//                }, label: {
-//                    Text("Checkout")
-//                        .font(.system(.largeTitle))
-//                        .frame(width: 350, height: 50)
-//                        .foregroundColor(Color.white)
-//                        .padding(.bottom, 7)
-//                })
-//                .background(Color.blue)
-//                .cornerRadius(38.5)
-//                .padding()
-//                .shadow(color: Color.black.opacity(0.3),
-//                        radius: 3,
-//                        x: 3,
-//                        y: 3)
-//                .onAppear(perform: {
-//                    loadImage()
-//                })
-//            }
-//        }
     }
     
     func loadImage() {

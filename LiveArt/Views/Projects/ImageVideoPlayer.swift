@@ -12,8 +12,8 @@ import AVKit
 struct ImageVideoPlayer: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
     
-    @Binding var imageUUID: String?
-    @Binding var videoUUID: String?
+    var imageUUID: String?
+    var videoUUID: String?
     
     class Coordinator: NSObject {
         let parent: ImageVideoPlayer

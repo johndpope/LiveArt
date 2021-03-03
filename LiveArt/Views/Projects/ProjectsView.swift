@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-
-
-
 struct ProjectsView: View {
     @ObservedObject var projectModel: ProjectsViewModel
     @State private var isShowingNewProjectView = false
@@ -17,31 +14,54 @@ struct ProjectsView: View {
     var body: some View {
         let projects = projectModel.getProjects()
         NavigationView {
-            ScrollView {
-                LazyVGrid(columns: [
-                    GridItem(.flexible(minimum: 100, maximum: 200),spacing: 12),
-                    GridItem(.flexible(minimum: 100, maximum: 200),spacing: 12)
-                ], spacing: 12, content: {
-                    ForEach(0..<projects.count, id: \.self) { num in
-                        HStack {
-                            let project = projects[num]
-                                NavigationLink(destination: ProjectView(project: project)) {
-                                    ProjectViewItem(project: project)
-                                        .shadow(radius: 10)
-                                }
+            ZStack {
+                ScrollView {
+                    LazyVGrid(columns: [
+                        GridItem(.flexible(minimum: 100, maximum: 200),spacing: 12),
+                        GridItem(.flexible(minimum: 100, maximum: 200),spacing: 12)
+                    ], spacing: 12, content: {
+                        ForEach(0..<projects.count, id: \.self) { num in
+                            HStack {
+                                let project = projects[num]
+                                    NavigationLink(destination: ProjectView(project: project)) {
+                                        ProjectViewItem(project: project)
+                                            .shadow(radius: 10)
+                                    }
+                            }
+                            .padding()
                         }
-                        .padding()
+                    })
+                }
+                VStack {
+                    Spacer()
+                    NavigationLink(destination:
+                                    AugmentedCamera.init()
+                    ) {
+                        Image(systemName: "square.stack.3d.up")
+                            .font(.largeTitle)
+                            .frame(width: 70, height: 70)
+                            .background(Color.blue)
+                            .clipShape(Circle())
+                            .foregroundColor(.white)
                     }
-                })
+                    .padding()
+                    .shadow(radius: 2)
+                }
             }
             .navigationTitle(Text("My Projects"))
-            .navigationBarItems(trailing:
-            NavigationLink(destination: NewProjectView.init(projectsModel: projectModel)) {
-                HStack {
-                    Text("Create")
-                    Image(systemName: "plus.square.fill")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink.init(destination: NewProjectView.init(projectsModel: projectModel)) {
+                        Text("Create")
+                        Image(systemName: "plus.square.fill")
+                    }
                 }
-            })
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationLink.init(destination: AccountView.init()) {
+                        Image(systemName: "person.crop.circle")
+                    }
+                }
+            }
         }
     }
 }

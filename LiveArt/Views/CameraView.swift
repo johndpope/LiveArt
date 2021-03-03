@@ -10,6 +10,7 @@ import SwiftUI
 struct CameraView: View {
     var body: some View {
         AugmentedCamera.init()
+            .navigationBarHidden(true)
     }
 }
 
