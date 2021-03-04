@@ -30,15 +30,16 @@ struct NewProjectView: View {
         VStack {
             
             if inputImageUUID == nil && inputVideoUUID == nil{
-                if let text = labelText {
-                    Text(text)
-                        .font(.system(size: 60))
-                } else {
-                    Text("Select Image")
-                        .font(.system(size: 60))
-                }
-                Spacer()
+//                if let text = labelText {
+//                    Text(text)
+//                        .font(.system(size: 60))
+//                } else {
+//                    Text("Select Image")
+//                        .font(.system(size: 60))
+//                }
+//                Spacer()
                 ImageVideoPicker(labelText: $labelText, imageUUID: $inputImageUUID, videoUUID: $inputVideoUUID)
+                    .edgesIgnoringSafeArea(.all)
             } else {
                 ImageVideoPlayer(imageUUID: inputImageUUID, videoUUID: inputVideoUUID)
                 NavigationLink(destination: BuyNowView()) {

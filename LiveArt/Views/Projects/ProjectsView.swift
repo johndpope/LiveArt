@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ProjectsView: View {
     @ObservedObject var projectModel: ProjectsViewModel
-    @State private var isShowingNewProjectView = false
-    
+    @State private var showingDetail = false
+
     var body: some View {
         let projects = projectModel.getProjects()
         NavigationView {
@@ -34,18 +34,26 @@ struct ProjectsView: View {
                 }
                 VStack {
                     Spacer()
-                    NavigationLink(destination:
-                                    AugmentedCamera.init()
-                    ) {
-                        Image(systemName: "square.stack.3d.up")
-                            .font(.largeTitle)
-                            .frame(width: 70, height: 70)
-                            .background(Color.blue)
-                            .clipShape(Circle())
-                            .foregroundColor(.white)
+                    Button("Present!") {
+                        showingDetail.toggle()
                     }
-                    .padding()
-                    .shadow(radius: 2)
+                    .fullScreenCover(isPresented: $showingDetail, content: CameraView.init)
+//                    Button("Show Detail") {
+//                        showingDetail.toggle()
+//                    }
+//                    .fullScreenCover(isPresented: $isPresented, content: CameraView.init)
+
+                    
+//                    NavigationLink(destination: CameraView()) {
+//                        Image(systemName: "square.stack.3d.up")
+//                            .font(.largeTitle)
+//                            .frame(width: 70, height: 70)
+//                            .background(Color.blue)
+//                            .clipShape(Circle())
+//                            .foregroundColor(.white)
+//                    }
+//                    .padding()
+//                    .shadow(radius: 2)
                 }
             }
             .navigationTitle(Text("My Projects"))

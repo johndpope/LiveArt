@@ -13,18 +13,25 @@ import SceneKit
 
 struct AugmentedCamera: UIViewControllerRepresentable {
 
-    class Coordinator: NSObject, UINavigationControllerDelegate {
+    class Coordinator: NSObject, UINavigationControllerDelegate, ARViewDelegate {
         let parent: AugmentedCamera
-        
+        func didTapScreen() {
+            if parent.isShowingDismissButton {
+                parent.isShowingDismissButton = false
+            } else {
+                parent.isShowingDismissButton = true
+            }
+        }
         init(_ parent: AugmentedCamera) {
             self.parent = parent
         }
     }
     
     @Environment(\.presentationMode) var presentationMode
-    
+    @Binding var isShowingDismissButton: Bool
     func makeUIViewController(context: Context) -> some UIViewController {
         let arVC = ARViewController.init()
+        arVC.delegate = context.coordinator
         return arVC
     }
     
@@ -38,7 +45,13 @@ struct AugmentedCamera: UIViewControllerRepresentable {
 }
 
 
+protocol ARViewDelegate {
+    func didTapScreen()
+}
+
 class ARViewController: UIViewController, ARSCNViewDelegate {
+    
+    var delegate: ARViewDelegate?
     
     @IBOutlet var sceneView: ARSCNView!
     
@@ -71,6 +84,8 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
         statusViewController.restartExperienceHandler = { [unowned self] in
             self.restartExperience()
         }
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(didTapView))
+        sceneView.addGestureRecognizer(gesture)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -83,6 +98,10 @@ class ARViewController: UIViewController, ARSCNViewDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         session.pause()
+    }
+    
+    @objc func didTapView() {
+        delegate?.didTapScreen()
     }
 
     var isRestartAvailable = true
