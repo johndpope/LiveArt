@@ -34,26 +34,17 @@ struct ProjectsView: View {
                 }
                 VStack {
                     Spacer()
-                    Button("Present!") {
+                    Button(action: {
                         showingDetail.toggle()
+                    }) {
+                        Image(systemName: "square.stack.3d.up")
+                            .font(.largeTitle)
+                            .frame(width: 70, height: 70)
+                            .background(Color.blue)
+                            .clipShape(Circle())
+                            .foregroundColor(.white)
                     }
                     .fullScreenCover(isPresented: $showingDetail, content: CameraView.init)
-//                    Button("Show Detail") {
-//                        showingDetail.toggle()
-//                    }
-//                    .fullScreenCover(isPresented: $isPresented, content: CameraView.init)
-
-                    
-//                    NavigationLink(destination: CameraView()) {
-//                        Image(systemName: "square.stack.3d.up")
-//                            .font(.largeTitle)
-//                            .frame(width: 70, height: 70)
-//                            .background(Color.blue)
-//                            .clipShape(Circle())
-//                            .foregroundColor(.white)
-//                    }
-//                    .padding()
-//                    .shadow(radius: 2)
                 }
             }
             .navigationTitle(Text("My Projects"))

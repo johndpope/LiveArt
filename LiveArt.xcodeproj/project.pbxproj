@@ -153,6 +153,7 @@
 		456FFDA725D69A4C00742B7E /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				45616F8225EFA154001B10DD /* BuyNowView.swift */,
 				45B9E6E025BCE2F9002B905D /* AccountView.swift */,
 				456FFDA825D69A6D00742B7E /* SignUpView.swift */,
 				45BECB8A25D86AB600A34746 /* SignInView.swift */,
@@ -253,7 +254,6 @@
 				450E450125EAE62D009C7450 /* ImageVideoPicker.swift */,
 				45B05B7325EB12D60032999E /* ImageCropperViewController.swift */,
 				45616F7D25EF264A001B10DD /* ProjectView.swift */,
-				45616F8225EFA154001B10DD /* BuyNowView.swift */,
 			);
 			path = Projects;
 			sourceTree = "<group>";

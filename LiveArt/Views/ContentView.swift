@@ -18,7 +18,11 @@ struct ContentView: View {
     }
     
     var body: some View {
-        ProjectsView(projectModel: model)
+        BuyNowView()
+//        ProjectsView(projectModel: model)
+//            .onAppear {
+//                gSessionStore.listen()
+//            }
 //        TabView() {
 //            ProjectsView(projectModel: model)
 //                .tabItem {
